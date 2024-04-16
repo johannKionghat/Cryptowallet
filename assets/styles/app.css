@@ -34,10 +34,11 @@
 }
 body{
     background: black;
-    font-size: 12px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .body{
+    width: 100vw !important;
+    height: 100vh !important;
     background: linear-gradient(200.19deg, #050B1B -15.69%, #FFFFFF -3.27%, rgba(52, 240, 252, 0.764627) -1.03%, #38618C 32.9%, rgba(55, 118, 175, 0.699185) 56.25%, rgba(53, 167, 255, 0) 110.52%);
 }
 .btn-primary{
