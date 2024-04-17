@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Error;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -56,7 +58,6 @@ class RegistrationController extends AbstractController
             $this->addFlash('success','Compte creé avec succes, connectez-vous !');
             return $this->redirectToRoute('app_login');
         }
-        $this->addFlash('danger','Cette adresse email est déjà enregistrée !');
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);

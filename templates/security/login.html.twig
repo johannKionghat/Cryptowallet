@@ -6,17 +6,18 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="container formulaire text-center">
         <div class="logo">BITCHEST</div>
+        <hr>
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-            {% include '/partials/flashes.html.twig' %}
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    You are logged in as {{ app.user.userIdentifier }}, <a class="a-primary" href="{{ path('app_logout') }}">Logout</a>
                 </div>
             {% endif %}
             <div class="row text-center"><h1 class="h3 mb-3 font-weight-normal">Sign in</h1></div>
+            {% include '/partials/flashes.html.twig' %}
             <div class="row"></div><input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
             <div class="row"></div><input type="password" name="password" id="inputPassword" placeholder="Password" class="form-control" autocomplete="current-password" required>
             <input type="hidden" name="_csrf_token"
