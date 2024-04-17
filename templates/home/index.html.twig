@@ -3,13 +3,15 @@
 {% block title %}Bitchest{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    <h1>Bitchest! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/User/OneDrive/Bureau/bicthest/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/User/OneDrive/Bureau/bicthest/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+<div class="container d-flex justify-content-center align-items-center vh-100" style="flex-direction:column;">
+        <div class="row"><img src="{{asset('/images/logoBitchestlightinline.png')}}" alt="" class="logo-primary-1"></div>
+        <div class="row text-center"><h2 class="logo-text"> WELCOME TO BITCHEST</h2></div>
+        <div class="row text-center">
+        <h4 class="text-secondary">Tangible ownership of cryptocurrencies. Immersive Web3 experiences</h4>
+        </div><hr>
+       <a href="{{path('app_register')}}"><button class="btn btn-primary">Get started !</button></a>
+       <hr>
+       <p class="text-light">By tapping “Get Started” you agree and consen to our</p>
+       <a href="#" class="a-primary">Terms of Services and Privact Policy</a>
 </div>
 {% endblock %}

@@ -3,32 +3,35 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="container formulaire text-center">
-        <div class="logo">BITCHEST</div>
-        <hr>
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a class="a-primary" href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
-            <div class="row text-center"><h1 class="h3 mb-3 font-weight-normal">Sign in</h1></div>
-            {% include '/partials/flashes.html.twig' %}
-            <div class="row"></div><input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-            <div class="row"></div><input type="password" name="password" id="inputPassword" placeholder="Password" class="form-control" autocomplete="current-password" required>
-            <input type="hidden" name="_csrf_token"
-                value="{{ csrf_token('authenticate') }}"
-            >
-            <button class="btn btn-primary" type="submit">
-                Sign in
-            </button>
+<div class="body-gradian">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="container d-flex justify-content-center align-items-center formulaire text-center" style="flex-direction: column;">
+            <img src="{{asset('/images/logoBitchestlight.png')}}" alt="" class="logo-primary-2">
+            <strong>BITCHEST</strong>
+            <form method="post">
             <hr>
-        <div class="row text-center"><p>Don't have an account ? <a class="a-primary" href="{{path('app_register')}}">Sing up </a></p></div>
-        </form>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a class="a-primary" href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <div class="row text-center"><strong class="mb-3 font-weight-normal">Sign in</strong></div>
+                {% include '/partials/flashes.html.twig' %}
+                <div class="row"></div><input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <div class="row"></div><input type="password" name="password" id="inputPassword" placeholder="Password" class="form-control" autocomplete="current-password" required>
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+                <button class="btn btn-primary" type="submit">
+                    Sign in
+                </button>
+                <hr>
+            <div class="row text-center"><p>Don't have an account ? <a class="a-primary" href="{{path('app_register')}}">Sing up </a></p></div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
