@@ -9,6 +9,7 @@
         {% for flash_error in app.flashes('verify_email_error') %}
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
+        {% include '/partials/flashes.html.twig' %}
         {{ form_errors(registrationForm) }}
             <div class="logo">BITCHEST</div>
         {{ form_start(registrationForm) }}
