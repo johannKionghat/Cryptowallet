@@ -4,8 +4,8 @@
 
 {% block body %}
 <div class="body-gradian">
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="container d-flex justify-content-center align-items-center formulaire text-center" style="flex-direction: column;">
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="container d-flex justify-content-center align-items-center formulaire text-center" style="flex-direction: column;">
             {% for flash_error in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
             {% endfor %}
