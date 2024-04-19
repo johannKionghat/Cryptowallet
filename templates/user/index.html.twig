@@ -6,12 +6,8 @@
 
 
 <div class="example-wrapper">
+    {% include 'partials/flashes.html.twig' %}
     <h1>Accueil✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/User/OneDrive/Bureau/bicthest/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/User/OneDrive/Bureau/bicthest/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
+    <a href="{{path('app_logout')}}" class="a-primary">Logout</a>
 </div>
 {% endblock %}

@@ -6,19 +6,17 @@
 <div class="body-gradian">
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="container d-flex justify-content-center align-items-center formulaire text-center" style="flex-direction: column;">
-            {% for flash_error in app.flashes('verify_email_error') %}
-                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-            {% endfor %}
-            
-            {{ form_errors(registrationForm) }}
                 <img src="{{asset('/images/logoBitchestlight.png')}}" alt="" class="logo-primary-2">
                 <strong>BITCHEST</strong>
             {{ form_start(registrationForm) }}
                 <hr>
-                <div class="row text-center"><strong>Sing up</strong></div>
+                {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
                 {% include '/partials/flashes.html.twig' %}
+                <div class="row text-center"><strong>Sing up</strong></div>
                 <div class="row">{{ form_row(registrationForm.email) }}</div>
-                <div class="row">{{ form_row(registrationForm.plainPassword) }}</div>
+                {# <div class="row">{{ form_row(registrationForm.plainPassword) }}</div> #}
                 <div class="d-flex gap-2" style="align-items: center;">
                     <div>{{ form_row(registrationForm.agreeTerms) }} </div>
                     <div>I agree to <a href="" class="a-primary">terms</a> and <a href="" class="a-primary">conditions</a></div>

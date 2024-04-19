@@ -6,7 +6,9 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -15,8 +17,14 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+   public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $randomPassword = bin2hex(random_bytes(8));
+        $encryptionMethod = "AES-256-CBC";
+        $secretKey = "bitchestCDA02";
+        $iv = '8812BJHBDICT7287';
+        $randomPassword = openssl_encrypt($randomPassword, $encryptionMethod, $secretKey, 0, $iv);
+        
         $builder
             ->add('email', EmailType::class,[
                 'label'=> false,
@@ -31,7 +39,8 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('plainPassword', HiddenType::class, [
+                'data'=>$randomPassword,
                 'label'=> false,
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

@@ -18,8 +18,8 @@
                         You are logged in as {{ app.user.userIdentifier }}, <a class="a-primary" href="{{ path('app_logout') }}">Logout</a>
                     </div>
                 {% endif %}
-                <div class="row text-center"><strong class="mb-3 font-weight-normal">Sign in</strong></div>
                 {% include '/partials/flashes.html.twig' %}
+                <div class="row text-center"><strong class="mb-3 font-weight-normal">Sign in</strong></div>
                 <div class="row"></div><input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
                 <div class="row"></div><input type="password" name="password" id="inputPassword" placeholder="Password" class="form-control" autocomplete="current-password" required>
                 <input type="hidden" name="_csrf_token"

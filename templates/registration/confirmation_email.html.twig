@@ -1,11 +1,19 @@
-<h1>Hi! Please confirm your email!</h1>
 
-<p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
+{% include 'base.html.twig'%}
+<div class="container">
+    <div class="d-flex justify-content-center"><img src="{{asset('/images/logoBitchestlight.png')}}" alt="" class="logo-primary-2"></div>
+    <hr>
+    <h3>Hi! {{user.email}} Please confirm your email!</h3>
+    <p> Welcome to Bitchest wallet, 
+        your <strong>TempKey</strong> is : <h1><strong>{{randomPassword}}</strong></h1>.
+        <hr>
+        Please confirm your email address by clicking the following link: <br><br>
+        <a class="a-primary" href="{{ signedUrl|raw }}">Confirm my Email</a>. Then login with TempKey.
+        This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    </p>
 
-<p>
-    Cheers!
-</p>
+    <p>
+        Cheers!
+    </p>
+</div>
+
