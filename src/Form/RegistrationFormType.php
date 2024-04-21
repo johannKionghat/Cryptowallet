@@ -19,12 +19,6 @@ class RegistrationFormType extends AbstractType
 {
    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $randomPassword = bin2hex(random_bytes(8));
-        $encryptionMethod = "AES-256-CBC";
-        $secretKey = "bitchestCDA02";
-        $iv = '8812BJHBDICT7287';
-        $randomPassword = openssl_encrypt($randomPassword, $encryptionMethod, $secretKey, 0, $iv);
-        
         $builder
             ->add('email', EmailType::class,[
                 'label'=> false,
@@ -39,25 +33,35 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', HiddenType::class, [
-                'data'=>$randomPassword,
+            ->add('firstname', TextType::class,[
                 'label'=> false,
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password', 'placeholder'=>'Password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
+                'attr' => ['placeholder' => 'Firstname'],
+                'required'=>true
             ])
+            ->add('lastname', TextType::class,[
+                'label'=> false,
+                'attr' => ['placeholder' => 'Lastname'],
+                'required'=>true
+            ])
+            // ->add('plainPassword', HiddenType::class, [
+            //     'data'=>$randomPassword,
+            //     'label'=> false,
+            //     // instead of being set onto the object directly,
+            //     // this is read and encoded in the controller
+            //     'mapped' => false,
+            //     'attr' => ['autocomplete' => 'new-password', 'placeholder'=>'Password'],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please enter a password',
+            //         ]),
+            //         new Length([
+            //             'min' => 6,
+            //             'minMessage' => 'Your password should be at least {{ limit }} characters',
+            //             // max length allowed by Symfony for security reasons
+            //             'max' => 4096,
+            //         ]),
+            //     ],
+            // ])
         ;
     }
 

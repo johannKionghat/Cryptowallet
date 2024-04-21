@@ -35,15 +35,11 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $encryptionMethod = "AES-256-CBC";
-            $secretKey = "bitchestCDA02";
-            $iv = '8812BJHBDICT7287';
-            $randomPassord=$form->get('plainPassword')->getData();
-            $randomPassord = openssl_decrypt($randomPassord, $encryptionMethod, $secretKey, 0, $iv);
+            $randomPassword = bin2hex(random_bytes(12)); 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $randomPassord
+                    $randomPassword
                 )
             );
 
@@ -57,7 +53,7 @@ class RegistrationController extends AbstractController
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
-                    ->context(['user'=>$user,'randomPassword'=>$randomPassord])
+                    ->context(['user'=>$user,'randomPassword'=>$randomPassword])
             );
 
             // do anything else you need here, like send an email

@@ -54,6 +54,9 @@ body{
     height: 100% !important;
     background: linear-gradient(200.19deg, #050B1B -15.69%, #FFFFFF -3.27%, rgba(3, 116, 124, 0.765) -1.03%, #38618C 32.9%, rgba(55, 118, 175, 0.699185) 56.25%, rgba(53, 167, 255, 0) 110.52%);
 }
+.bg-gradian{
+    background: linear-gradient(200.19deg, #050B1B -15.69%, #FFFFFF -3.27%, rgba(3, 116, 124, 0.765) -1.03%, #38618C 32.9%, rgba(55, 118, 175, 0.699185) 56.25%, rgba(53, 167, 255, 0) 110.52%);
+}
 .btn{
     height: 50px !important;
 }
@@ -89,6 +92,10 @@ body{
     width: 100px;
     height: auto;
 }
+.logo-primary-3{
+    width: 50px;
+    height: auto;
+}
 .logo-text{
     font-size: 3rem;
     font-weight: bolder;
@@ -102,4 +109,7 @@ body{
 }
 .text-secondary{
     color: #38618C !important;
+}
+ul{
+    list-style: none !important;
 }

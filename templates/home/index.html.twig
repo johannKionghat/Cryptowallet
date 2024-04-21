@@ -9,13 +9,15 @@
                 <hr>
                 <img src="{{asset('/images/logoBitchestlightinline.png')}}" alt="" class="logo-primary-1">
                 <div class="row text-center"><h2 class="logo-text"> WELCOME TO BITCHEST</h2></div><hr>
-                <div class="row text-center"><hr>
-                <h4 class="text-secondary">Tangible ownership of cryptocurrencies. Immersive Web3 experiences</h4>
+                <div class="row text-center">
+                <h4 class="text-secondary" style="margin-bottom: 30px;">Tangible ownership of cryptocurrencies. Immersive Web3 experiences</h4>
                 </div>
                 <a href="{{path('app_register')}}"><button class="btn btn-primary">Get started !</button></a>
                 <hr>
                 <p class="text-light text-center">By tapping “Get Started” you agree and consent to our</p>
                 <a href="#" class="a-primary">Terms of Services and Privact Policy</a>
         </div>
+        {% include 'partials/footerGetstarted.html.twig' %}
 </div>
+
 {% endblock %}

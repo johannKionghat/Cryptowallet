@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +33,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $countryFrom = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cityFrom = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateBirth = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $countryBirth = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cityBirth = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $telephone = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageProfil = null;
 
     public function getId(): ?int
     {
@@ -68,6 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+        $roles[1]='ROLE_ADMIN';
 
         return array_unique($roles);
     }
@@ -111,6 +143,125 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(?string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getCountryFrom(): ?string
+    {
+        return $this->countryFrom;
+    }
+
+    public function setCountryFrom(?string $countryFrom): static
+    {
+        $this->countryFrom = $countryFrom;
+
+        return $this;
+    }
+
+    public function getCityFrom(): ?string
+    {
+        return $this->cityFrom;
+    }
+
+    public function setCityFrom(?string $cityFrom): static
+    {
+        $this->cityFrom = $cityFrom;
+
+        return $this;
+    }
+
+    public function getDateBirth(): ?\DateTimeInterface
+    {
+        return $this->dateBirth;
+    }
+
+    public function setDateBirth(?\DateTimeInterface $dateBirth): static
+    {
+        $this->dateBirth = $dateBirth;
+
+        return $this;
+    }
+
+    public function getCountryBirth(): ?string
+    {
+        return $this->countryBirth;
+    }
+
+    public function setCountryBirth(?string $countryBirth): static
+    {
+        $this->countryBirth = $countryBirth;
+
+        return $this;
+    }
+
+    public function getCityBirth(): ?string
+    {
+        return $this->cityBirth;
+    }
+
+    public function setCityBirth(?string $cityBirth): static
+    {
+        $this->cityBirth = $cityBirth;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?int $telephone): static
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getImageProfil(): ?string
+    {
+        return $this->imageProfil;
+    }
+
+    public function setImageProfil(?string $imageProfil): static
+    {
+        $this->imageProfil = $imageProfil;
 
         return $this;
     }

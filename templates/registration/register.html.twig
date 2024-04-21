@@ -15,6 +15,10 @@
                 {% endfor %}
                 {% include '/partials/flashes.html.twig' %}
                 <div class="row text-center"><strong>Sing up</strong></div>
+                <div class="row">
+                    <div class="col-6">{{ form_row(registrationForm.firstname) }}</div>
+                    <div class="col-6">{{ form_row(registrationForm.lastname) }}</div>
+                </div>
                 <div class="row">{{ form_row(registrationForm.email) }}</div>
                 {# <div class="row">{{ form_row(registrationForm.plainPassword) }}</div> #}
                 <div class="d-flex gap-2" style="align-items: center;">
