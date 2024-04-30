@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, Security $security): Response
     {
         if ($security->getUser() !== null) {
-            return $this->redirectToRoute('user.accueil');
+            return $this->redirectToRoute('accueil');
         }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -80,8 +80,8 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified. Now think has updated your password in profile settings');
+        $this->addFlash('success', 'Your email address has been verified. Now think has updated your password in Security settings');
 
-        return $this->redirectToRoute('user.accueil');
+        return $this->redirectToRoute('accueil');
     }
 }

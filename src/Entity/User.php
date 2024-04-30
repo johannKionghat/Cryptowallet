@@ -64,6 +64,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageProfil = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $zipcode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $language = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateAT = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $currency = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -262,6 +274,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImageProfil(?string $imageProfil): static
     {
         $this->imageProfil = $imageProfil;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?int
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(?int $zipcode): static
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): static
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getDateAT(): ?\DateTimeInterface
+    {
+        return $this->dateAT;
+    }
+
+    public function setDateAT(?\DateTimeInterface $dateAT): static
+    {
+        $this->dateAT = $dateAT;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }

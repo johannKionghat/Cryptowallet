@@ -1,6 +1,6 @@
 .cardcrypto {
     position: relative;
-    width: 250px; /* Largeur de votre conteneur */
+    width: 350px; /* Largeur de votre conteneur */
     height: 150px; /* Hauteur de votre conteneur */
 }
 
@@ -18,8 +18,18 @@
     position: absolute;
     border-radius: 10px;
     height: 150px; /* Hauteur de la div avant */
-    background: linear-gradient(90.64deg, #010B2D -1.92%, #38618C 10.09%, #35E7FF 27.61%, #38618C 47.86%, #38618C 61.62%, #00E0FF 85.75%, #00637C 96.46%, #38618C 110.44%);
+    background-image: url('/assets/images/cardcrypto.png');
+    background-size: cover;
+    background-position: right;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+.cardcrypto-text{
 
+font-style: normal;
+font-weight: 700;
+line-height: 30px;
+color: #FFFFFF;
+text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+
+}
 
