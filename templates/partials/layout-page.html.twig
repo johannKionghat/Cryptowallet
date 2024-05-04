@@ -26,6 +26,9 @@
         {% if app.current_route == 'setting.editCustomer' %}
           {% include 'admin/editCustomerlayout.html.twig'%}
         {% endif %}
+        {% if app.current_route == 'setting.deleteCustomer' %}
+          {% include 'admin/deleteCustomerlayout.html.twig'%}
+        {% endif %}
         {% if app.current_route == 'setting.customer' %}
           {% include 'admin/manageCustomer.html.twig'%}
         {% endif %}

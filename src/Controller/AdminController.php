@@ -43,8 +43,8 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $em->flush();
-            $this->addFlash('success','Profile edit with success');
-            return $this->redirectToRoute('setting.profile',['id'=>$id]);
+            $this->addFlash('success','Customer edit with success');
+            return $this->redirectToRoute('setting.editCustomer',['id'=>$id]);
         }
         return $this->render('user/index.html.twig', [
             'formEditCustomer' => $form,
