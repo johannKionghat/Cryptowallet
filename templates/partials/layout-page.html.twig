@@ -1,4 +1,4 @@
-<div class="layout-page bg-gradian">
+<div class="layout-page bg-alternative1">
     <!-- Navbar -->
     {% include 'partials/navbar.html.twig' %}
     <!-- / Navbar -->
@@ -20,11 +20,11 @@
         {% if app.current_route == 'setting.profile' %}
           {% include 'user/profile.html.twig'%}
         {% endif %}
-        {% if app.current_route == 'setting.deleteCustomer' %}
-          {% include 'user/deleteCustomerlayout.html.twig'%}
-        {% endif %}
         {% if app.current_route == 'setting.security' %}
           {% include 'user/security.html.twig'%}
+        {% endif %}
+        {% if app.current_route == 'setting.editCustomer' %}
+          {% include 'admin/editCustomerlayout.html.twig'%}
         {% endif %}
         {% if app.current_route == 'setting.customer' %}
           {% include 'admin/manageCustomer.html.twig'%}
