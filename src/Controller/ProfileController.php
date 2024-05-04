@@ -45,25 +45,11 @@ class ProfileController extends AbstractController
                 )
             );
             $em->flush();
-            $this->addFlash('success','Security changed with success !');
+            $this->addFlash('success','Password changed with success !');
             return $this->redirectToRoute('setting.security',['id'=>$id]);
         }
         return $this->render('user/index.html.twig', [
             'form' => $form,
-        ]);
-    }
-    #[Route('/setting/delete-{id}', name: 'setting.deleteUser', requirements:['id'=>Requirement::DIGITS])]
-    public function deleteProfile ($id, User $user, UserRepository $userRepository, EntityManagerInterface $em, Request $request){
-        $formDelete=$this->createForm(DeleteProfileType::class);
-        $formDelete->handleRequest($request);
-        if ($formDelete->isSubmitted() && $formDelete->isValid()){
-            $user = $userRepository->find($id);
-            $em->remove($user);
-            $em->flush();
-            return $this->redirectToRoute('app_login');
-        }
-        return $this->render('user/index.html.twig',[
-            'formDelete'=>$formDelete
         ]);
     }
 }

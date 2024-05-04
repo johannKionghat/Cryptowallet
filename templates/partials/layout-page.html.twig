@@ -9,19 +9,19 @@
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-         <div class="col">
+         <div class="col-12">
           {% include 'partials/flashes.html.twig' %}
          </div>
         {% if app.current_route == 'accueil' %}
             {# cardcrypto #}
-                {% include 'partials/cardcrypto.html.twig' %}
+            {% include 'partials/cardcrypto.html.twig' %}
             {# cardcrypto #}
         {% endif %}
         {% if app.current_route == 'setting.profile' %}
           {% include 'user/profile.html.twig'%}
         {% endif %}
-        {% if app.current_route == 'setting.deleteUser' %}
-          {% include 'user/deleteProfilelayout.html.twig'%}
+        {% if app.current_route == 'setting.deleteCustomer' %}
+          {% include 'user/deleteCustomerlayout.html.twig'%}
         {% endif %}
         {% if app.current_route == 'setting.security' %}
           {% include 'user/security.html.twig'%}
