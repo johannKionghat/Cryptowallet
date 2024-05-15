@@ -17,14 +17,73 @@
               <!-- Dashboard -->
               <li class="menu-item {{ app.current_route == 'accueil' ? 'active' : ''}}">
                 <a href="{{path('accueil')}}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                  <i class="menu-icon tf-icons bx bxs-home"></i>
                   <div>Dashboard</div>
+                </a>
+              </li>
+              <!-- Send -->
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <i class='menu-icon bx bxs-up-arrow-circle'></i>
+                  <div>Send</div>
+                </a>
+              </li>
+              <!-- Receive -->
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <i class='menu-icon bx bxs-down-arrow-circle'></i>
+                  <div>Receive</div>
+                </a>
+              </li>
+              {# trade #}
+              <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                  <i class='menu-icon bx bxs-bar-chart-alt-2'></i>  
+                  <div>Trade</div>
+                </a>
+
+                <ul class="menu-sub">
+                {# buy #}
+                  <li class="menu-item {{ app.current_route == 'setting.profile' ? 'active' : ''}}">
+                    <a href="#" class="menu-link ">
+                      <i class='bx bx-trending-up me-2'></i>
+                      <div>Buy</div>
+                    </a>
+                  </li>
+                  {# sell #}
+                  <li class="menu-item {{ app.current_route == 'setting.profile' ? 'active' : ''}}">
+                    <a href="#" class="menu-link ">
+                      <i class='bx bx-trending-down me-2'></i>
+                      <div>Sell</div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+               <!-- Swap -->
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <i class='menu-icon bx bx-transfer-alt me-2'></i>
+                  <div>Swap</div>
+                </a>
+              </li>
+               {# wallet #}
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <i class='menu-icon bx bxs-wallet' ></i>
+                  <div>Wallet</div>
+                </a>
+              </li>
+              <!-- History Transaction -->
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <i class='menu-icon bx bx-history' ></i>
+                  <div>Transaction</div>
                 </a>
               </li>
               {# settings #}
               <li class="menu-item {{ app.current_route starts with 'setting' ? 'active' : ''}}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class='menu-icon bx bx-slider-alt m-1'></i>  
+                  <i class='menu-icon bx bxs-cog me-2'></i>  
                   <div>Settings</div>
                 </a>
 
@@ -47,18 +106,21 @@
                     </a>
                   </li>
                   {% if app.user.roles[0] == 1 %}
+                    <li class="menu-header small text-uppercase">
+                      <span class="menu-header-text">Admin</span>
+                    </li>
                     <li class="menu-item {{ app.current_route == 'setting.customer' ? 'active' : ''}}">
                       <a href="{{path('setting.customer')}}" class="menu-link">
-                        <i class='me-2 bx bx-group'></i>
+                        <i class='me-2 bx bxs-edit'></i>
                         <div>Customers</div>
                       </a>
                     </li>
+                    <li class="menu-item {{ app.current_route == 'setting.customer' ? 'active' : ''}}">
+                      <a href="#" class="menu-link">
+                        <i class='me-2 bx bxs-edit'></i>
+                        <div>Cryptocurrency</div>
+                      </a>
+                    </li>
                   {% endif %}
-                  <li class="menu-item">
-                    <a href="#" class="menu-link">
-                      <i class='me-2 bx bx-transfer-alt'></i>
-                      <div "Container">Langage</div>
-                    </a>
-                  </li>
             </ul>
         </aside>

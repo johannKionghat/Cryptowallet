@@ -23,6 +23,20 @@ class AdminController extends AbstractController
             'users' => $users,
         ]);
     }
+    #[Route('/Admin/addCustomer', name: 'setting.addCustomer')]
+    public function addCustomer(Request $request, EntityManagerInterface $em, UserRepository $repository){
+        $form=$this->createForm(ProfileType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($repository);
+            $em->flush();
+            $this->addFlash('success','User added with success !');
+            return $this->redirectToRoute('setting.addCustomer');
+        }
+        return $this->render('user/index.html.twig',[
+            'formAddcustomer'=>$form
+        ]);
+    }
     #[Route('/Admin/deleteCustomer-{id}', name: 'setting.deleteCustomer', requirements:['id'=>Requirement::DIGITS])]
     public function deleteCustomer ($id, User $user,EntityManagerInterface $em, Request $request){
         $formDelete=$this->createForm(DeleteCustomerType::class);
@@ -42,12 +56,20 @@ class AdminController extends AbstractController
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+            /** @var UploadedFile $file */
+            $file=$form->get('thumbnailFile')->getData();
+            if (!$file==null){
+                $filename= $user->getId().'.'.$user->getEmail().$file->getClientOriginalExtension();
+                $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/users',$filename);
+                $user->setThumbnail($filename);
+            }
             $em->flush();
             $this->addFlash('success','Customer edit with success');
             return $this->redirectToRoute('setting.editCustomer',['id'=>$id]);
         }
         return $this->render('user/index.html.twig', [
             'formEditCustomer' => $form,
+            'customer'=>$user,
         ]);
     }
 }

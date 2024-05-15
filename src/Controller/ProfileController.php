@@ -23,6 +23,13 @@ class ProfileController extends AbstractController
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+            /** @var UploadedFile $file */
+            $file=$form->get('thumbnailFile')->getData();
+            if (!$file==null){
+                $filename= $user->getId().'.'.$user->getEmail().$file->getClientOriginalExtension();
+                $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/users',$filename);
+                $user->setThumbnail($filename);
+            }
             $em->flush();
             $this->addFlash('success','Profile edit with success');
             return $this->redirectToRoute('setting.profile',['id'=>$id]);

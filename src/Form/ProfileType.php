@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,12 +15,24 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('thumbnailFile', FileType::class,[
+                'mapped'=> false,
+                'required'=>false,
+                'constraints'=>[
+                    new Image()
+                ],
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'form-control'
+                ]
+            ])
             ->add('firstname',TextType::class,[
                 'attr'=>["class"=>"form-control"],
                 'label'=>false,
@@ -75,35 +88,35 @@ class ProfileType extends AbstractType
                 'attr'=>["class"=>"form-control"],
                 'label'=>false,
             ])
-            ->add('language', ChoiceType::class,[ 
-                'required'=>false,
-                'attr'=>["class"=>"form-control"],
-                'label'=>false,
-                'choices'=>[
-                    'Select language'=>'',
-                    'English'=>"en",
-                    'French'=>"fr",
-                    'German'=>"de",
-                    'Portuguese'=>"pt"
-                ]
-            ])
+            // ->add('language', ChoiceType::class,[ 
+            //     'required'=>false,
+            //     'attr'=>["class"=>"form-control"],
+            //     'label'=>false,
+            //     'choices'=>[
+            //         'Select language'=>'',
+            //         'English'=>"en",
+            //         'French'=>"fr",
+            //         'German'=>"de",
+            //         'Portuguese'=>"pt"
+            //     ]
+            // ])
             ->add('telephone',NumberType::class,[
                 'required'=>false,
                 'attr'=>["class"=>"form-control"],
                 'label'=>false,
             ])
-            ->add('currency', ChoiceType::class, [
-                'required'=>false,
-                'choices'=>[
-                    'Select Currency'=>"",
-                    'USD'=>"usd",  
-                    'Euro'=>"euro",   
-                    'Pound'=>"pound",  
-                    'Bitcoin'=>"bitcoin"
-                ],
-                'attr'=>["class"=>"form-control"],
-                'label'=>false,
-            ])
+            // ->add('currency', ChoiceType::class, [
+            //     'required'=>false,
+            //     'choices'=>[
+            //         'Select Currency'=>"",
+            //         'USD'=>"usd",  
+            //         'Euro'=>"euro",   
+            //         'Pound'=>"pound",  
+            //         'Bitcoin'=>"bitcoin"
+            //     ],
+            //     'attr'=>["class"=>"form-control"],
+            //     'label'=>false,
+            // ])
             ->add('save', SubmitType::class, [
                 'label'=>'Save changes',
                 'attr'=>[ "class"=>"btn btn-primary me-2"]

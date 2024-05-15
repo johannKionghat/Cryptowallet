@@ -27,7 +27,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                    <img src="{{asset('/assets/img/avatars/1.png')}}" alt class="w-px-40  rounded-circle" style="object-fit: cover;" />
+                    <img src="{{asset('/assets/images/users/')}}{{app.user.thumbnail}}" alt class="w-px-40  rounded-circle" style="object-fit: cover;" />
                 </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -36,7 +36,7 @@
                     <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                            <img src="{{asset('/assets/img/avatars/1.png')}}" alt class=" w-px-40 rounded-circle" style="object-fit: cover;"/>
+                            <img src="{{asset('/assets/images/users/')}}{{app.user.thumbnail}}" alt class=" w-px-40 rounded-circle" style="object-fit: cover;"/>
                         </div>
                         </div>
                         <div class="flex-grow-1">
@@ -51,15 +51,6 @@
                         </small>
                         </div>
                     </div>
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">
-                    <span class="d-flex align-items-center align-middle">
-                        <i class=' menu-icon bx bx-chat'></i>
-                        <span class="flex-grow-1 align-middle">Message</span>
-                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                    </span>
                     </a>
                 </li>
                 <li>

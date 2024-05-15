@@ -15,96 +15,96 @@ class Transaction
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $DateTransaction = null;
+    private ?\DateTimeInterface $DateTransactionAT = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $amount = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $TypeTransaction = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
-    private ?string $type = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $AmountTransaction = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $PaymentMethode = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $PriceCrypto = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $fee = null;
+    #[ORM\ManyToOne(inversedBy: 'IdTransaction')]
+    private ?User $IdUser = null;
 
-    #[ORM\Column]
-    private ?bool $state = null;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Cryptocurrency $IdCryptocurrency = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateTransaction(): ?\DateTimeInterface
+    public function getDateTransactionAT(): ?\DateTimeInterface
     {
-        return $this->DateTransaction;
+        return $this->DateTransactionAT;
     }
 
-    public function setDateTransaction(?\DateTimeInterface $DateTransaction): static
+    public function setDateTransactionAT(?\DateTimeInterface $DateTransactionAT): static
     {
-        $this->DateTransaction = $DateTransaction;
+        $this->DateTransactionAT = $DateTransactionAT;
 
         return $this;
     }
 
-    public function getAmount(): ?string
+    public function getTypeTransaction(): ?string
     {
-        return $this->amount;
+        return $this->TypeTransaction;
     }
 
-    public function setAmount(string $amount): static
+    public function setTypeTransaction(?string $TypeTransaction): static
     {
-        $this->amount = $amount;
+        $this->TypeTransaction = $TypeTransaction;
 
         return $this;
     }
 
-    public function getType(): ?string
+    public function getAmountTransaction(): ?int
     {
-        return $this->type;
+        return $this->AmountTransaction;
     }
 
-    public function setType(string $type): static
+    public function setAmountTransaction(?int $AmountTransaction): static
     {
-        $this->type = $type;
+        $this->AmountTransaction = $AmountTransaction;
 
         return $this;
     }
 
-    public function getPaymentMethode(): ?string
+    public function getPriceCrypto(): ?int
     {
-        return $this->PaymentMethode;
+        return $this->PriceCrypto;
     }
 
-    public function setPaymentMethode(string $PaymentMethode): static
+    public function setPriceCrypto(?int $PriceCrypto): static
     {
-        $this->PaymentMethode = $PaymentMethode;
+        $this->PriceCrypto = $PriceCrypto;
 
         return $this;
     }
 
-    public function getFee(): ?string
+    public function getIdUser(): ?User
     {
-        return $this->fee;
+        return $this->IdUser;
     }
 
-    public function setFee(string $fee): static
+    public function setIdUser(?User $IdUser): static
     {
-        $this->fee = $fee;
+        $this->IdUser = $IdUser;
 
         return $this;
     }
 
-    public function isState(): ?bool
+    public function getIdCryptocurrency(): ?Cryptocurrency
     {
-        return $this->state;
+        return $this->IdCryptocurrency;
     }
 
-    public function setState(bool $state): static
+    public function setIdCryptocurrency(?Cryptocurrency $IdCryptocurrency): static
     {
-        $this->state = $state;
+        $this->IdCryptocurrency = $IdCryptocurrency;
 
         return $this;
     }

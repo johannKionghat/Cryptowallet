@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -74,7 +76,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $dateAT = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $currency = null;
+    private ?string $currency = 'EUR';
+
+    #[ORM\Column]
+    private ?int $balance = 500;
+
+    #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: Transaction::class)]
+    private Collection $IdCryptocurrency;
+
+    #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: Transaction::class)]
+    private Collection $IdTransaction;
+
+    #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: Wallet::class)]
+    private Collection $IdWalet;
+
+    #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: StoryTransaction::class)]
+    private Collection $IdStoryTransaction;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $thumbnail = 'avatar.png';
+
+    public function __construct()
+    {
+        $this->IdCryptocurrency = new ArrayCollection();
+        $this->IdTransaction = new ArrayCollection();
+        $this->IdWalet = new ArrayCollection();
+        $this->IdStoryTransaction = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -322,6 +350,150 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCurrency(?string $currency): static
     {
         $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getBalance(): ?int
+    {
+        return $this->balance;
+    }
+
+    public function setBalance(int $balance): static
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getIdCryptocurrency(): Collection
+    {
+        return $this->IdCryptocurrency;
+    }
+
+    public function addIdCryptocurrency(Transaction $idCryptocurrency): static
+    {
+        if (!$this->IdCryptocurrency->contains($idCryptocurrency)) {
+            $this->IdCryptocurrency->add($idCryptocurrency);
+            $idCryptocurrency->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdCryptocurrency(Transaction $idCryptocurrency): static
+    {
+        if ($this->IdCryptocurrency->removeElement($idCryptocurrency)) {
+            // set the owning side to null (unless already changed)
+            if ($idCryptocurrency->getIdUser() === $this) {
+                $idCryptocurrency->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getIdTransaction(): Collection
+    {
+        return $this->IdTransaction;
+    }
+
+    public function addIdTransaction(Transaction $idTransaction): static
+    {
+        if (!$this->IdTransaction->contains($idTransaction)) {
+            $this->IdTransaction->add($idTransaction);
+            $idTransaction->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdTransaction(Transaction $idTransaction): static
+    {
+        if ($this->IdTransaction->removeElement($idTransaction)) {
+            // set the owning side to null (unless already changed)
+            if ($idTransaction->getIdUser() === $this) {
+                $idTransaction->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Wallet>
+     */
+    public function getIdWalet(): Collection
+    {
+        return $this->IdWalet;
+    }
+
+    public function addIdWalet(Wallet $idWalet): static
+    {
+        if (!$this->IdWalet->contains($idWalet)) {
+            $this->IdWalet->add($idWalet);
+            $idWalet->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdWalet(Wallet $idWalet): static
+    {
+        if ($this->IdWalet->removeElement($idWalet)) {
+            // set the owning side to null (unless already changed)
+            if ($idWalet->getIdUser() === $this) {
+                $idWalet->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StoryTransaction>
+     */
+    public function getIdStoryTransaction(): Collection
+    {
+        return $this->IdStoryTransaction;
+    }
+
+    public function addIdStoryTransaction(StoryTransaction $idStoryTransaction): static
+    {
+        if (!$this->IdStoryTransaction->contains($idStoryTransaction)) {
+            $this->IdStoryTransaction->add($idStoryTransaction);
+            $idStoryTransaction->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdStoryTransaction(StoryTransaction $idStoryTransaction): static
+    {
+        if ($this->IdStoryTransaction->removeElement($idStoryTransaction)) {
+            // set the owning side to null (unless already changed)
+            if ($idStoryTransaction->getIdUser() === $this) {
+                $idStoryTransaction->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getThumbnail(): ?string
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(?string $thumbnail): static
+    {
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }

@@ -421,7 +421,7 @@ button.list-group-item-primary.active {
 .menu.bg-primary .menu-link,
 .menu.bg-primary .menu-horizontal-prev,
 .menu.bg-primary .menu-horizontal-next {
-  color: #e0e1ff;
+  color: #ffe0e0;
 }
 .menu.bg-primary .menu-link:hover, .menu.bg-primary .menu-link:focus,
 .menu.bg-primary .menu-horizontal-prev:hover,
@@ -654,19 +654,19 @@ a:hover {
 .bg-menu-theme .menu-link,
 .bg-menu-theme .menu-horizontal-prev,
 .bg-menu-theme .menu-horizontal-next {
-  color: #697a8d;
+  color: #35A7FF;
 }
 .bg-menu-theme .menu-link:hover, .bg-menu-theme .menu-link:focus,
 .bg-menu-theme .menu-horizontal-prev:hover,
 .bg-menu-theme .menu-horizontal-prev:focus,
 .bg-menu-theme .menu-horizontal-next:hover,
 .bg-menu-theme .menu-horizontal-next:focus {
-  color: #566a7f;
+  color: #38618C;
 }
 .bg-menu-theme .menu-link.active,
 .bg-menu-theme .menu-horizontal-prev.active,
 .bg-menu-theme .menu-horizontal-next.active {
-  color: #566a7f;
+  color: #35A7FF !;
 }
 .bg-menu-theme .menu-item.disabled .menu-link,
 .bg-menu-theme .menu-horizontal-prev.disabled,
@@ -675,7 +675,7 @@ a:hover {
 }
 .bg-menu-theme .menu-item.open:not(.menu-item-closing) > .menu-toggle,
 .bg-menu-theme .menu-item.active > .menu-link {
-  color: #566a7f;
+  color: #35A7FF;
 }
 .bg-menu-theme .menu-item.active > .menu-link:not(.menu-toggle) {
   background-color: #fff;
@@ -689,7 +689,7 @@ a:hover {
 .bg-menu-theme .menu-inner > .menu-item.menu-item-closing .menu-item.open .menu-sub,
 .bg-menu-theme .menu-inner > .menu-item.menu-item-closing .menu-item.open .menu-toggle {
   background: transparent;
-  color: #697a8d;
+  color: #35A7FF;
 }
 .bg-menu-theme .menu-inner-shadow {
   background: linear-gradient(#fff 41%, rgba(255, 255, 255, 0.11) 95%, rgba(255, 255, 255, 0));
@@ -738,17 +738,17 @@ a:hover {
 html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item.open > .menu-link, .layout-menu-hover.layout-menu-collapsed .bg-menu-theme .menu-inner .menu-item.open > .menu-link,
 html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item .menu-link:not(.active):hover,
 .layout-menu-hover.layout-menu-collapsed .bg-menu-theme .menu-inner .menu-item .menu-link:not(.active):hover {
-  background-color: rgba(67, 89, 113, 0.04);
+  background-color: #35a7ff5b;
 }
 .bg-menu-theme .menu-inner .menu-sub > .menu-item.active > .menu-link.menu-toggle {
-  background-color: rgba(67, 89, 113, 0.04);
+  background-color: #35a7ff5b;
 }
 .bg-menu-theme .menu-inner .menu-sub > .menu-item.active .menu-icon {
-  color: #35A7FF;
+  color: #ffffff;
 }
 .bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
-  color: #35A7FF;
-  background-color: #38618c40 !important;
+  color: #ffffff;
+  background-color: #35A7FF !important;
 }
 .bg-menu-theme .menu-inner > .menu-item.active:before {
   background: #35A7FF;
