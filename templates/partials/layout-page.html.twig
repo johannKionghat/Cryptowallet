@@ -24,6 +24,10 @@
         {% if app.current_route == 'setting.security' %}
           {% include 'user/security.html.twig'%}
         {% endif %}
+        {# admin customer layout #}
+        {% if app.current_route == 'setting.addCustomer' %}
+          {% include 'admin/customer/addCustomerlayout.html.twig'%}
+        {% endif %}
         {% if app.current_route == 'setting.editCustomer' %}
           {% include 'admin/customer/editCustomerlayout.html.twig'%}
         {% endif %}
@@ -32,6 +36,19 @@
         {% endif %}
         {% if app.current_route == 'setting.customer' %}
           {% include 'admin/customer/manageCustomer.html.twig'%}
+        {% endif %}
+        {# admin cryptocurrency layout #}
+         {% if app.current_route == 'setting.addCrypto' %}
+          {% include 'admin/cryptocurrency/addCryptocurrencylayout.html.twig'%}
+        {% endif %}
+        {% if app.current_route == 'setting.editCrypto' %}
+          {% include 'admin/cryptocurrency/editCryptocurrencylayout.html.twig'%}
+        {% endif %}
+        {% if app.current_route == 'setting.deleteCrypto' %}
+          {% include 'admin/cryptocurrency/deleteCryptocurrencylayout.html.twig'%}
+        {% endif %}
+        {% if app.current_route == 'setting.cryptocurrency' %}
+          {% include 'admin/cryptocurrency/manageCryptocurrency.html.twig'%}
         {% endif %}
         </div>
     </div>

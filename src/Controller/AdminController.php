@@ -2,19 +2,25 @@
 
 namespace App\Controller;
 
+use App\Entity\Cryptocurrency;
 use App\Entity\User;
+use App\Form\CryptoType;
 use App\Form\DeleteCustomerType;
+use App\Form\DeleteType;
 use App\Form\ProfileType;
+use App\Repository\CryptocurrencyRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 class AdminController extends AbstractController
 {
+    // customers management
     #[Route('/Admin/manage-customer', name: 'setting.customer')]
     public function index(UserRepository $userRepository): Response
     {
@@ -24,27 +30,42 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/Admin/addCustomer', name: 'setting.addCustomer')]
-    public function addCustomer(Request $request, EntityManagerInterface $em, UserRepository $repository){
-        $form=$this->createForm(ProfileType::class);
+    public function addCustomer(Request $request, EntityManagerInterface $em, User $user, UserPasswordHasherInterface $userPasswordHasher){
+        $form=$this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $em->persist($repository);
+            /** @var UploadedFile $file */
+            $file=$form->get('thumbnailFile')->getData();
+            if (!$file==null){
+                $filename= $user->getId().'.'.$user->getEmail().$file->getClientOriginalExtension();
+                $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/users',$filename);
+                $user->setThumbnail($filename);
+            }
+            $randomPassword = bin2hex(random_bytes(12)); 
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $randomPassword
+                )
+            );
+            
+            $em->persist($user);
             $em->flush();
             $this->addFlash('success','User added with success !');
-            return $this->redirectToRoute('setting.addCustomer');
+            return $this->redirectToRoute('setting.customer');
         }
         return $this->render('user/index.html.twig',[
-            'formAddcustomer'=>$form
+            'formAddCustomer'=>$form
         ]);
     }
     #[Route('/Admin/deleteCustomer-{id}', name: 'setting.deleteCustomer', requirements:['id'=>Requirement::DIGITS])]
-    public function deleteCustomer ($id, User $user,EntityManagerInterface $em, Request $request){
-        $formDelete=$this->createForm(DeleteCustomerType::class);
+    public function deleteCustomer ($id, Cryptocurrency $cryptocurrency,EntityManagerInterface $em, Request $request){
+        $formDelete=$this->createForm(DeleteType::class);
         $formDelete->handleRequest($request);
         if ($formDelete->isSubmitted() && $formDelete->isValid()){
-            $em->remove($user);
+            $em->remove($cryptocurrency);
             $em->flush();
-            return $this->redirectToRoute('accueil');
+            return $this->redirectToRoute('setting.customer');
         }
         return $this->render('user/index.html.twig',[
             'formDelete'=>$formDelete
@@ -63,13 +84,87 @@ class AdminController extends AbstractController
                 $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/users',$filename);
                 $user->setThumbnail($filename);
             }
+            $role = $form->get('roles')->getData();
+            if($role==='admin'){
+                $user->setRoles([1]);
+            }
+            if($role==='user'){
+                $user->setRoles([]);
+            }
+            $state=$form->get('state')->getData();
+            $user->setIsVerified($state);
             $em->flush();
             $this->addFlash('success','Customer edit with success');
-            return $this->redirectToRoute('setting.editCustomer',['id'=>$id]);
+            return $this->redirectToRoute('setting.customer',['id'=>$id]);
         }
         return $this->render('user/index.html.twig', [
             'formEditCustomer' => $form,
             'customer'=>$user,
+        ]);
+    }
+    // cryptocurrency management
+    #[Route('/Admin/manage-cryptocurrency', name: 'setting.cryptocurrency')]
+    public function index2(CryptocurrencyRepository $cryptocurrencyRepository): Response
+    {
+        $cryptocurrencies=$cryptocurrencyRepository->findAll();
+        return $this->render('user/index.html.twig', [
+            'cryptocurrencies' => $cryptocurrencies,
+        ]);
+    }
+    #[Route('/Admin/addCrypto', name: 'setting.addCrypto')]
+    public function addCrypto(Request $request, EntityManagerInterface $em, Cryptocurrency $cryptocurrency){
+        $form=$this->createForm(CryptoType::class, $cryptocurrency);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var UploadedFile $file */
+            $file=$form->get('imageFile')->getData();
+            if (!$file==null){
+                $filename= $cryptocurrency->getId().'.'.$cryptocurrency->getName().'.'.$file->getClientOriginalExtension();
+                $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/Cryptocurrency',$filename);
+                $cryptocurrency->setImage($filename);
+            }
+            $em->persist($cryptocurrency);
+            $em->flush();
+            $this->addFlash('success','New Crypto added with success !');
+            return $this->redirectToRoute('setting.cryptocurrency');
+        }
+        return $this->render('user/index.html.twig',[
+            'formAddCrypto'=>$form
+        ]);
+    }
+    #[Route('/Admin/deleteCrypto-{id}', name: 'setting.deleteCrypto', requirements:['id'=>Requirement::DIGITS])]
+    public function deleteCrypto ($id, Cryptocurrency $cryptocurrency, EntityManagerInterface $em, Request $request){
+        $formDelete=$this->createForm(DeleteType::class);
+        $formDelete->handleRequest($request);
+        if ($formDelete->isSubmitted() && $formDelete->isValid()){
+            $em->remove($cryptocurrency);
+            $em->flush();
+            return $this->redirectToRoute('setting.cryptocurrency');
+        }
+        return $this->render('user/index.html.twig',[
+            'formDeleteCrypto'=>$formDelete
+        ]);
+    }
+    #[Route('/Admin/editCrypto-{id}', name: 'setting.editCrypto', requirements:['id'=>Requirement::DIGITS])]
+    public function editCrypto (Cryptocurrency $cryptocurrency, Request $request, $id, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(CryptoType::class, $cryptocurrency);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            /** @var UploadedFile $file */
+            $file=$form->get('imageFile')->getData();
+            if (!$file==null){
+                $filename= $cryptocurrency->getId().'.'.$cryptocurrency->getName().'.'.$file->getClientOriginalExtension();
+                $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/Cryptocurrency',$filename);
+                $cryptocurrency->setImage($filename);
+            }
+            $em->flush();
+            $this->addFlash('success','Crypto edit with success');
+            return $this->redirectToRoute('setting.cryptocurrency',['id'=>$id]);
+        }
+        return $this->render('user/index.html.twig', [
+            'formEditCrypto' => $form,
+            'crypto'=>$cryptocurrency,
         ]);
     }
 }

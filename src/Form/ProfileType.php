@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -32,6 +33,10 @@ class ProfileType extends AbstractType
                 'attr'=>[
                     'class'=>'form-control'
                 ]
+            ])
+            ->add('email',EmailType::class,[
+                'attr'=>["class"=>"form-control"],
+                'label'=>false,
             ])
             ->add('firstname',TextType::class,[
                 'attr'=>["class"=>"form-control"],
@@ -105,6 +110,29 @@ class ProfileType extends AbstractType
                 'attr'=>["class"=>"form-control"],
                 'label'=>false,
             ])
+            ->add('roles',ChoiceType::class,[
+                'choices' => [
+                    'admin' => 'admin',
+                    'user' =>'user',
+                    'Select role' => null,
+                ],
+                'mapped'=>false,
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'form-control'
+                ]
+            ])
+            ->add('state',ChoiceType::class,[
+                'choices' => [
+                    'Verified' => true,
+                    'No verified' =>false,
+                ],
+                'mapped'=>false,
+                'label'=>false,
+                'attr'=>[
+                    'class'=>'form-control'
+                ]
+            ])
             // ->add('currency', ChoiceType::class, [
             //     'required'=>false,
             //     'choices'=>[
@@ -118,7 +146,7 @@ class ProfileType extends AbstractType
             //     'label'=>false,
             // ])
             ->add('save', SubmitType::class, [
-                'label'=>'Save changes',
+                'label'=>'Save',
                 'attr'=>[ "class"=>"btn btn-primary me-2"]
             ])
         ;

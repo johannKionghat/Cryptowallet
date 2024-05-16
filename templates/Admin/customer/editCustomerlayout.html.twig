@@ -10,8 +10,8 @@
                 src="{{asset('/assets/images/users/')}}{{customer.thumbnail}}"
                 alt="user-avatar"
                 class="d-block rounded"
-                height="100"
-                width="100"
+                height="50"
+                width="50"
                 id="uploadedAvatar"
                 style="object-fit: cover;"
             />
@@ -30,6 +30,10 @@
                 <label for="lastName" class="form-label">Last Name</label>
                 {{form_row(formEditCustomer.lastname)}}
                 </div>
+                <div class="mb-3 col-md-6">
+                        <label for="address" class="form-label">Email</label>
+                        {{form_row(formEditCustomer.email)}}
+                        </div>
                 <div class="mb-3 col-md-6">
                 <label for="address" class="form-label">Address</label>
                 {{form_row(formEditCustomer.address)}}
@@ -51,9 +55,16 @@
                 {{form_row(formEditCustomer.cityFrom)}}
                 </div>
                 <div class="mb-3 col-md-6">
-            </div>
-            <div class="d-flex mt-2">
+                    <label class="form-label" for="country">Role</label>
+                    {{form_row(formEditCustomer.roles)}}
+                    </div>
+                        <div class="mb-3 col-md-6">
+                    <label class="form-label" for="country">State</label>
+                    {{form_row(formEditCustomer.state)}}
+                    </div>
+                <div class="d-flex mt-2">
                 {{ form_row(formEditCustomer.save) }}
+                <a href="{{path('setting.customer')}}" class="btn btn-secondary">Annuler</a>
             </div>
             {{ form_end(formEditCustomer) }}
         </div>

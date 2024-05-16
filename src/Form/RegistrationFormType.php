@@ -22,10 +22,14 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class,[
                 'label'=> false,
-                'attr' => ['placeholder' => 'Email'],
+                'attr' => ['placeholder' => 'Email',
+                'class'=> 'form-control'],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label'=> false,
+                'attr'=> [
+                    'class'=> 'form'
+                ],
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -35,12 +39,16 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('firstname', TextType::class,[
                 'label'=> false,
-                'attr' => ['placeholder' => 'Firstname'],
+                'attr' => ['
+                placeholder' => 'Firstname',
+                'class'=> 'form-control'
+            ],
                 'required'=>true
             ])
             ->add('lastname', TextType::class,[
                 'label'=> false,
-                'attr' => ['placeholder' => 'Lastname'],
+                'attr' => ['placeholder' => 'Lastname',
+                'class'=> 'form-control'],
                 'required'=>true
             ])
             // ->add('plainPassword', HiddenType::class, [

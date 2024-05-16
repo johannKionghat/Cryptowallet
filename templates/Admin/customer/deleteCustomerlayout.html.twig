@@ -11,7 +11,10 @@
                 {{ form_row(formDelete.confirmation) }}
                 <label class="form-check-label" for="accountActivation">I confirm account deactivation</label>
                 <hr>
-                {{ form_row(formDelete.Deactivation) }}
+                <div class="d-flex gap-2">
+                    {{ form_row(formDelete.Deactivation) }}
+                    <a href="{{path('setting.customer')}}" class="btn btn-secondary">Annuler</a>
+                </div>
             {{ form_end(formDelete) }}
         </div>
         </div>

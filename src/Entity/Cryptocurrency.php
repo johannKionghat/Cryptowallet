@@ -20,7 +20,7 @@ class Cryptocurrency
     private ?int $CurrentPrice = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    private ?string $image = 'avatar.png';
 
     #[ORM\Column(length: 255)]
     private ?string $Abreviation = null;
@@ -29,7 +29,7 @@ class Cryptocurrency
     private ?Wallet $IdWallet = null;
 
     #[ORM\Column]
-    private ?int $soldeCrypto = null;
+    private ?int $soldeCrypto = 0;
 
     public function getId(): ?int
     {
