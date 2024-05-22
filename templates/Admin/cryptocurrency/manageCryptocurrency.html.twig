@@ -37,32 +37,17 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th>Action</th>
                   <th>Image</th>
                   <th>Name</th>
                   <th>Abreviation</th>
                   <th>Current price</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
               {% for cryptocurrency in cryptocurrencies %}
                     <tr>
-                  <td>{{cryptocurrency.id}}</td>
-                  <td><img
-                        src="{{asset('/assets/images/Cryptocurrency/')}}{{cryptocurrency.image}}"
-                        alt="user-avatar"
-                        class="d-block rounded"
-                        height="50"
-                        width="50"
-                        id="uploadedAvatar"
-                        style="object-fit: cover;"
-                        />
-                  </td>
-                  <td><strong>{{cryptocurrency.name}}</strong></td>
-                  <td>{{cryptocurrency.abreviation}}</td>
-                  <td>{{cryptocurrency.currentPrice}}</td>
-                  <td>
+                     <td>
                     <div class="dropdown">
                       <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                         <i class="bx bx-dots-vertical-rounded"></i>
@@ -76,6 +61,19 @@
                       </div>
                     </div>
                   </td>
+                  <td><img
+                        src="{{asset('/assets/images/Cryptocurrency/')}}{{cryptocurrency.image}}"
+                        alt="user-avatar"
+                        class="d-block rounded"
+                        height="50"
+                        width="50"
+                        id="uploadedAvatar"
+                        style="object-fit: cover;"
+                        />
+                  </td>
+                  <td><strong>{{cryptocurrency.name}}</strong></td>
+                  <td>{{cryptocurrency.abreviation}}</td>
+                  <td>{{cryptocurrency.currentPrice}}</td>
                 </tr>
               {% endfor %}
               </tbody>

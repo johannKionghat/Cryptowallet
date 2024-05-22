@@ -37,44 +37,19 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th>Actions</th>
+                  <th>Profile</th>
                   <th>Firstname</th>
                   <th>Lastname</th>
                   <th>Email</th>
-                  <th>Profil</th>
                   <th>Roles</th>
                   <th>Status</th>
-                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
               {% for user in users %}
                     <tr>
-                  <td>{{user.id}}</td>
-                  <td><strong>{{user.firstname}}</strong></td>
-                  <td>{{user.lastname}}</td>
-                  <td>{{user.email}}</td>
-                  <td><img
-                        src="{{asset('/assets/images/users/')}}{{user.thumbnail}}"
-                        alt="user-avatar"
-                        class="d-block rounded"
-                        height="50"
-                        width="50"
-                        id="uploadedAvatar"
-                        style="object-fit: cover;"
-                        />
-                  </td>
-                  <td>
-                      <strong>
-                          {% if user.roles.0 == 1 %}Admin{% endif %}
-                          {% if user.roles.0 == 'ROLE_USER' %}User{% endif %}
-                      </strong>
-                  </td>
-                  <td>
-                      {% if user.isVerified == 1 %}<span class="badge bg-label-success me-1">Verified</span></td>{% endif %}
-                      {% if user.isVerified == 0 %}<span class="badge bg-label-danger me-1">No Verified</span></td>{% endif %}
-                      
-                  <td>
+                    <td>
                   {% if app.user.id != user.id%}
                     <div class="dropdown">
                       <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -90,6 +65,28 @@
                     </div>
                     {% endif %}
                   </td>
+                  <td><img
+                        src="{{asset('/assets/images/users/')}}{{user.thumbnail}}"
+                        alt="user-avatar"
+                        class="d-block rounded"
+                        height="50"
+                        width="50"
+                        id="uploadedAvatar"
+                        style="object-fit: cover;"
+                        />
+                  </td>
+                  <td><strong>{{user.firstname}}</strong></td>
+                  <td>{{user.lastname}}</td>
+                  <td>{{user.email}}</td>
+                  <td>
+                      <strong>
+                          {% if user.roles.0 == 1 %}Admin{% endif %}
+                          {% if user.roles.0 == 'ROLE_USER' %}User{% endif %}
+                      </strong>
+                  </td>
+                  <td>
+                      {% if user.isVerified == 1 %}<span class="badge bg-label-success me-1">Verified</span></td>{% endif %}
+                      {% if user.isVerified == 0 %}<span class="badge bg-label-danger me-1">No Verified</span></td>{% endif %}
                 </tr>
               {% endfor %}
               </tbody>

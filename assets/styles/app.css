@@ -1,14 +1,5 @@
-.formulaire{
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #7cc1f96d;
-    box-shadow: 0px 0px 10px black;
-    width: 280px;
-    height:max-content;
-    color: white;
-    background-color: #050b1bd6;
-    font-size: 12px;
-    margin: 50px ;
+body {
+    background-color: lightgray;
 }
 .formulaire input{
     color: #608199;

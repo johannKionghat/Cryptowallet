@@ -57,7 +57,7 @@ class RegistrationController extends AbstractController
             );
 
             // do anything else you need here, like send an email
-            $this->addFlash('danger','You have received a confirmation email, click on the link to confirm and log in with your TempKey.');
+            $this->addFlash('success','You have received a confirmation email, click on the link to confirm and log in with your TempKey.');
             return $this->redirectToRoute('app_register');
         }
 

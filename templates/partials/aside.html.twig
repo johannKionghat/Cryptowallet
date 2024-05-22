@@ -88,6 +88,9 @@
                 </a>
 
                 <ul class="menu-sub">
+                <li class="menu-header small text-uppercase">
+                      <span class="menu-header-text">User</span>
+                    </li>
                   <li class="menu-item {{ app.current_route == 'setting.profile' ? 'active' : ''}}">
                     <a href="{{path('setting.profile',{id:app.user.id})}}" class="menu-link ">
                       <i class='bx bx-id-card me-2'></i>
