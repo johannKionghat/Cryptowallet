@@ -25,7 +25,7 @@ class AdminController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         $users=$userRepository->findAll();
-        return $this->render('user/index.html.twig', [
+        return $this->render('App/index.html.twig', [
             'users' => $users,
         ]);
     }
@@ -54,7 +54,7 @@ class AdminController extends AbstractController
             $this->addFlash('success','User added with success !');
             return $this->redirectToRoute('setting.customer');
         }
-        return $this->render('user/index.html.twig',[
+        return $this->render('App/index.html.twig',[
             'formAddCustomer'=>$form
         ]);
     }
@@ -67,7 +67,7 @@ class AdminController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('setting.customer');
         }
-        return $this->render('user/index.html.twig',[
+        return $this->render('App/index.html.twig',[
             'formDelete'=>$formDelete
         ]);
     }
@@ -97,7 +97,7 @@ class AdminController extends AbstractController
             $this->addFlash('success','Customer edit with success');
             return $this->redirectToRoute('setting.customer',['id'=>$id]);
         }
-        return $this->render('user/index.html.twig', [
+        return $this->render('App/index.html.twig', [
             'formEditCustomer' => $form,
             'customer'=>$user,
         ]);
@@ -107,7 +107,7 @@ class AdminController extends AbstractController
     public function index2(CryptocurrencyRepository $cryptocurrencyRepository): Response
     {
         $cryptocurrencies=$cryptocurrencyRepository->findAll();
-        return $this->render('user/index.html.twig', [
+        return $this->render('App/index.html.twig', [
             'cryptocurrencies' => $cryptocurrencies,
         ]);
     }
@@ -128,7 +128,7 @@ class AdminController extends AbstractController
             $this->addFlash('success','New Crypto added with success !');
             return $this->redirectToRoute('setting.cryptocurrency');
         }
-        return $this->render('user/index.html.twig',[
+        return $this->render('App/index.html.twig',[
             'formAddCrypto'=>$form
         ]);
     }
@@ -141,7 +141,7 @@ class AdminController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('setting.cryptocurrency');
         }
-        return $this->render('user/index.html.twig',[
+        return $this->render('App/index.html.twig',[
             'formDeleteCrypto'=>$formDelete
         ]);
     }
@@ -162,7 +162,7 @@ class AdminController extends AbstractController
             $this->addFlash('success','Crypto edit with success');
             return $this->redirectToRoute('setting.cryptocurrency',['id'=>$id]);
         }
-        return $this->render('user/index.html.twig', [
+        return $this->render('App/index.html.twig', [
             'formEditCrypto' => $form,
             'crypto'=>$cryptocurrency,
         ]);

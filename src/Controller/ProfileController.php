@@ -34,7 +34,7 @@ class ProfileController extends AbstractController
             $this->addFlash('success','Profile edit with success');
             return $this->redirectToRoute('setting.profile',['id'=>$id]);
         }
-        return $this->render('user/index.html.twig', [
+        return $this->render('App/index.html.twig', [
             'form' => $form,
         ]);
     }
@@ -55,7 +55,7 @@ class ProfileController extends AbstractController
             $this->addFlash('success','Password changed with success !');
             return $this->redirectToRoute('setting.security',['id'=>$id]);
         }
-        return $this->render('user/index.html.twig', [
+        return $this->render('App/index.html.twig', [
             'form' => $form,
         ]);
     }

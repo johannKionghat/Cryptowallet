@@ -49,7 +49,7 @@ body{
     background: linear-gradient(200.19deg, #050B1B -15.69%, #FFFFFF -3.27%, rgba(3, 116, 124, 0.765) -1.03%, #38618C 32.9%, rgba(55, 118, 175, 0.699185) 56.25%, rgba(53, 167, 255, 0) 110.52%);
 }
 .bg-alternative1{
-    background: rgb(243, 242, 250);
+    background: #dbe5ec;
 }
 .btn{  
     width: max-content;
