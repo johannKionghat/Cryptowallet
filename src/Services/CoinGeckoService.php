@@ -18,6 +18,10 @@ class CoinGeckoService
         $url = 'https://api.coingecko.com/api/v3/coins/markets';
         
         $response = $this->client->request('GET', $url, [
+            'headers' => [
+                'accept' => 'application/json',
+                'x-cg-demo-api-key' => 'CG-Z584fmyJiwnJAALN5QRjBNt8',
+              ],
             'query' => [
                 'vs_currency' => $vsCurrency,
                 'ids' => implode(',', $ids),
