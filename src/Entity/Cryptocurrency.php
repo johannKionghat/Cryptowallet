@@ -16,9 +16,6 @@ class Cryptocurrency
     #[ORM\Column(length: 255)]
     private ?string $Name = null;
 
-    #[ORM\Column]
-    private ?int $CurrentPrice = null;
-
     #[ORM\Column(length: 255)]
     private ?string $image = 'avatar.png';
 
@@ -47,19 +44,6 @@ class Cryptocurrency
 
         return $this;
     }
-
-    public function getCurrentPrice(): ?int
-    {
-        return $this->CurrentPrice;
-    }
-
-    public function setCurrentPrice(int $CurrentPrice): static
-    {
-        $this->CurrentPrice = $CurrentPrice;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;

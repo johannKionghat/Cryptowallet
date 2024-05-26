@@ -1,17 +1,31 @@
-<div class="card">
-    <div class="d-flex p-4 pt-3">
-    <div class="avatar flex-shrink-0 me-3">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" style="fill: #35a7ff;transform: ;msFilter:;"><path d="M20 7V5c0-1.103-.897-2-2-2H5C3.346 3 2 4.346 2 6v12c0 2.201 1.794 3 3 3h15c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zm-2 9h-2v-4h2v4zM5 7a1.001 1.001 0 0 1 0-2h13v2H5z"></path></svg>    </div>
-    <div>
-        <small class="text-muted d-block">Balance statistic</small>
-        <div class="d-flex align-items-center">
-        <h6 class="mb-0 me-1">{{app.user.balance}} <small> {{app.user.currency}}</h6>
-        <small class="text-success fw-semibold">
-            <i class="bx bx-chevron-up"></i>
-            42.9%
-        </small>
-        </div>
-    </div>
+<div class="card p-4">
+    <div id="container" style="width:100%; height:295px;"></div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+   <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const marketData = {{ marketChart.prices|json_encode|raw }};
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Bitcoin Price Chart'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Price (EUR)'
+                    }
+                },
+                series: [{
+                    name: 'Bitcoin',
+                    data: marketData.map(point => [point[0], point[1]])
+                }]
+            });
+        });
+    </script>
 </div>
-<div id="incomeChart"></div>
 </div>

@@ -26,12 +26,6 @@ class CryptoType extends AbstractType
                     'class'=>'form-control'
                 ]
             ])
-            ->add('CurrentPrice',NumberType::class,[
-                'label'=>false,
-                'attr'=>[
-                    'class'=>'form-control'
-                ]
-            ])
             ->add('imageFile',FileType::class,[
                 'mapped'=>false,
                 'label'=>false,

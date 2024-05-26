@@ -35,6 +35,10 @@
                 {{form_row(form.address)}}
                 </div>
                 <div class="mb-3 col-md-6">
+                <label class="form-label" for="country">Email</label>
+                {{form_row(form.email)}}
+                </div>
+                <div class="mb-3 col-md-6">
                 <label for="address" class="form-label">Phone Number</label>
                 {{form_row(form.telephone)}}
                 </div>
@@ -49,12 +53,15 @@
                 <div class="mb-3 col-md-6">
                 <label class="form-label" for="country">City</label>
                 {{form_row(form.cityFrom)}}
-                {# {{form_row(form.roles)}} #}
-                {# {{form_row(form.state)}} #}
-                {# {{form_row(form.email)}} #}
                 </div>
                 <div class="mb-3 col-md-6">
-            </div>
+                <label class="form-label" for="country">Role</label>
+                {{form_row(form.roles)}}
+                </div>
+                <div class="mb-3 col-md-6">
+                <label class="form-label" for="country">Sate</label>
+                {{form_row(form.state)}}
+                </div>
             <div class="d-flex mt-2">
                 {{ form_row(form.save) }}
             </div>
