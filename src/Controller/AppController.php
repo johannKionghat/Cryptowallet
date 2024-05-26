@@ -16,11 +16,11 @@ class AppController extends AbstractController
     public function index(CryptocurrencyRepository $cryptocurrencyRepository, CoinGeckoService $coinGeckoService, CoinGeckoDataGraph $coinGeckoDataGraph): Response
     {   
         $dataGraph = $coinGeckoDataGraph->getMarketChart('bitcoin', 'eur', 30);
-        $prices = $coinGeckoService->getPrices(['bitcoin', 'ethereum', 'ripple', 'bitcoin-cash','cardano', 'litecoin', 'nem', 'stellar', 'iota', 'dash']);
+        $marketData = $coinGeckoService->getMarketData('eur', ['bitcoin', 'ethereum', 'ripple', 'bitcoin-cash','cardano', 'litecoin', 'nem', 'stellar', 'iota', 'dash'], 10, 1);
         $cryptocurrencies=$cryptocurrencyRepository->findAll();
         return $this->render('App/index.html.twig',[
             'cryptocurrencies'=>$cryptocurrencies,
-            'prices'=>$prices,
+            'marketData'=>$marketData,
             'marketChart'=>$dataGraph,
         ]);
     }

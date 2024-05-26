@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\DeleteProfileType;
-use App\Form\ProfileType;
+use App\Form\UserProfileType;
 use App\Form\SecurityType;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +18,7 @@ class ProfileController extends AbstractController
     #[Route('/setting/profile-{id}', name: 'setting.profile', requirements:['id'=>Requirement::DIGITS])]
     public function index(User $user, Request $request, $id, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(ProfileType::class, $user);
+        $form = $this->createForm(UserProfileType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             /** @var UploadedFile $file */

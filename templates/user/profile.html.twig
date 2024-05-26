@@ -1,7 +1,7 @@
 <!-- Content -->
     <div class="col-md-12">
         {% include 'partials/flashes.html.twig'%}
-        <div class="card mb-4">
+        <div class="card mb-4 my-3">
         <h5 class="card-header">Profile Details</h5>
         <!-- Account -->
         <div class="card-body">
@@ -53,14 +53,6 @@
                 <div class="mb-3 col-md-6">
                 <label class="form-label" for="country">City</label>
                 {{form_row(form.cityFrom)}}
-                </div>
-                <div class="mb-3 col-md-6">
-                <label class="form-label" for="country">Role</label>
-                {{form_row(form.roles)}}
-                </div>
-                <div class="mb-3 col-md-6">
-                <label class="form-label" for="country">Sate</label>
-                {{form_row(form.state)}}
                 </div>
             <div class="d-flex mt-2">
                 {{ form_row(form.save) }}

@@ -13,19 +13,24 @@ class CoinGeckoService
         $this->client = $client;
     }
 
-    public function getPrices(array $ids, string $vsCurrency = 'eur'): array
+    public function getMarketData(string $vsCurrency = 'usd', array $ids = [], int $perPage = 100, int $page = 1)
     {
-        $idsString = implode(',', $ids);
-        $response = $this->client->request(
-            'GET',
-            "https://api.coingecko.com/api/v3/simple/price",
-            [
-                'query' => [
-                    'ids' => $idsString,
-                    'vs_currencies' => $vsCurrency,
-                ],
+        $url = 'https://api.coingecko.com/api/v3/coins/markets';
+        
+        $response = $this->client->request('GET', $url, [
+            'query' => [
+                'vs_currency' => $vsCurrency,
+                'ids' => implode(',', $ids),
+                'order' => 'market_cap_desc',
+                'per_page' => $perPage,
+                'page' => $page,
+                'sparkline' => 'true'
             ]
-        );
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            throw new \Exception('Failed to retrieve data from CoinGecko API');
+        }
 
         return $response->toArray();
     }
