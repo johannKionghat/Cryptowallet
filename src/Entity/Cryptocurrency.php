@@ -20,7 +20,7 @@ class Cryptocurrency
     private ?string $image = 'avatar.png';
 
     #[ORM\Column(length: 255)]
-    private ?string $Abreviation = null;
+    private ?string $Abreviation = 'null';
 
     #[ORM\ManyToOne(inversedBy: 'IdCryptocurrency')]
     private ?Wallet $IdWallet = null;

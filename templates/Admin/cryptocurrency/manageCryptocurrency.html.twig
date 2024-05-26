@@ -47,22 +47,14 @@
               {% for cryptocurrency in cryptocurrencies %}
                     <tr>
                      <td>
-                    <div class="dropdown">
-                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{path('setting.editCrypto',{id:cryptocurrency.id})}}"
-                          ><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                            <a class="dropdown-item" href="{{path('setting.deleteCrypto',{id:cryptocurrency.id})}}">
-                          <i class='me-2 bx bx-trash'></i>Delete
+                    <a class="dropdown-item" href="{{path('setting.deleteCrypto',{id:cryptocurrency.id})}}">
+                          <i class='me-2 bx bx-trash'></i>
                         </a>
-                      </div>
-                    </div>
                   </td>
-                  <td><img
-                        src="{{asset('/assets/images/Cryptocurrency/')}}{{cryptocurrency.image}}"
-                        alt="user-avatar"
+                  <td>
+                  <img
+                        src="{{cryptocurrency.image}}"
+                        alt="image-crypto"
                         class="d-block rounded"
                         height="50"
                         width="50"
@@ -71,7 +63,7 @@
                         />
                   </td>
                   <td><strong>{{cryptocurrency.name}}</strong></td>
-                  <td>{{cryptocurrency.abreviation}}</td>
+                  <td>{{cryptocurrency.abreviation | upper}}</td>
                 </tr>
               {% endfor %}
               </tbody>

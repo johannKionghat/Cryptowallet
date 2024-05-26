@@ -12,8 +12,8 @@
                 <label class="form-check-label" for="accountActivation">I confirm crypto deactivation</label>
                 <hr>
                 <div class="d-flex gap-2">
-                    {{ form_row(formDeleteCrypto.Deactivation) }}
-                    <a href="{{path('setting.customer')}}" class="btn btn-secondary">Annuler</a>
+                    {{ form_row(formDeleteCrypto.Delete) }}
+                    <a href="{{path('setting.cryptocurrency')}}" class="btn btn-secondary">Annuler</a>
                 </div>
             {{ form_end(formDeleteCrypto) }}
         </div>

@@ -45,17 +45,7 @@
                 <!-- Account -->
                 <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img
-                        src="{{asset('/assets/images/Cryptocurrency/avatar.png')}}"
-                        alt="user-avatar"
-                        class="d-block rounded"
-                        height="50"
-                        width="50"
-                        id="uploadedAvatar"
-                        style="object-fit: cover;"
-                    />
                     {{ form_start(formAddCrypto) }}
-                    {{ form_row(formAddCrypto.imageFile) }}
                     </div>
                 </div>
                 <hr class="my-0" />
@@ -64,10 +54,6 @@
                         <div class="mb-3 col-md-6">
                         <label for="firstName" class="form-label">Name</label>
                         {{form_row(formAddCrypto.Name)}}
-                        </div>
-                        <div class="mb-3 col-md-6">
-                        <label for="address" class="form-label">Symbol</label>
-                        {{form_row(formAddCrypto.Abreviation)}}
                         </div>
                         <div class="d-flex mt-2">
                             {{ form_row(formAddCrypto.save) }}

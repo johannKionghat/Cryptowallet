@@ -64,6 +64,7 @@
         height: 55px;
     }
 </style>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         {% for crypto in marketData %}
@@ -75,7 +76,7 @@
                     margin: [4, 4, 4, 4],
                     height: 60,
                     style: {
-                        overflow: 'visible'
+                        overflow: 'hidden'
                     },
                     skipClone: true
                 },
@@ -118,9 +119,7 @@
                     hideDelay: 0,
                     shared: true,
                     padding: 0,
-                    positioner: function (w, h, point) {
-                        return { x: point.plotX - w / 2, y: point.plotY - h };
-                    }
+                   
                 },
                 series: [{
                     data: {{ crypto.sparkline_in_7d.price|json_encode|raw }},

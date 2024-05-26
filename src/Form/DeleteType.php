@@ -20,7 +20,7 @@ class DeleteType extends AbstractType
                     'style'=>'margin: 0px'
                 ]
             ])
-            ->add('Deactivation',SubmitType::class,[
+            ->add('Delete',SubmitType::class,[
                 'attr'=>['class'=>'btn btn-danger']
             ])
         ;

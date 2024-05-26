@@ -10,6 +10,7 @@ use App\Form\DeleteType;
 use App\Form\ProfileType;
 use App\Repository\CryptocurrencyRepository;
 use App\Repository\UserRepository;
+use App\Services\CoinGeckoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,21 +113,35 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/Admin/addCrypto', name: 'setting.addCrypto')]
-    public function addCrypto(Request $request, EntityManagerInterface $em, Cryptocurrency $cryptocurrency){
+    public function addCrypto(Request $request, EntityManagerInterface $em, Cryptocurrency $cryptocurrency, CryptocurrencyRepository $cryptocurrencyRepository, CoinGeckoService $coinGeckoService){
+
         $form=$this->createForm(CryptoType::class, $cryptocurrency);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            /** @var UploadedFile $file */
-            $file=$form->get('imageFile')->getData();
-            if (!$file==null){
-                $filename= $cryptocurrency->getId().'.'.$cryptocurrency->getName().'.'.$file->getClientOriginalExtension();
-                $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/Cryptocurrency',$filename);
-                $cryptocurrency->setImage($filename);
+        // liste de tous les cryptomonaies 
+        $cryptocurrencies=$cryptocurrencyRepository->findAll();
+        // verification de la cryptomonaie à ajouter
+        for ($i = 0; $i < count($cryptocurrencies); $i++) {
+            if ($form->getData()->getName() == $cryptocurrencies[$i]->getName()){
+                $this->addFlash('danger','Crypto not added because it is already in database !');
+                return $this->redirectToRoute('setting.cryptocurrency');
             }
+            $listCrypto[]=strtolower($form->getData()->getName());
+        }
+        $marketData = $coinGeckoService->getMarketData('eur', $listCrypto, 10, 1);
+        // on verifie si la cryptomonaie exist dans la blockchain
+        if ($marketData == []){
+            $this->addFlash('danger','Crypto not added because it is not exist in blockchain');
+            return $this->redirectToRoute('setting.cryptocurrency'); 
+        }
+        if(!$marketData == []){
+            $cryptocurrency->setImage($marketData[0]['image']);
+            $cryptocurrency->setAbreviation($marketData[0]['symbol']);
             $em->persist($cryptocurrency);
             $em->flush();
             $this->addFlash('success','New Crypto added with success !');
             return $this->redirectToRoute('setting.cryptocurrency');
+        }
         }
         return $this->render('App/index.html.twig',[
             'formAddCrypto'=>$form
@@ -143,28 +158,6 @@ class AdminController extends AbstractController
         }
         return $this->render('App/index.html.twig',[
             'formDeleteCrypto'=>$formDelete
-        ]);
-    }
-    #[Route('/Admin/editCrypto-{id}', name: 'setting.editCrypto', requirements:['id'=>Requirement::DIGITS])]
-    public function editCrypto (Cryptocurrency $cryptocurrency, Request $request, $id, EntityManagerInterface $em): Response
-    {
-        $form = $this->createForm(CryptoType::class, $cryptocurrency);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            /** @var UploadedFile $file */
-            $file=$form->get('imageFile')->getData();
-            if (!$file==null){
-                $filename= $cryptocurrency->getId().'.'.$cryptocurrency->getName().'.'.$file->getClientOriginalExtension();
-                $file->move($this->getParameter('kernel.project_dir').'/public/assets/images/Cryptocurrency',$filename);
-                $cryptocurrency->setImage($filename);
-            }
-            $em->flush();
-            $this->addFlash('success','Crypto edit with success');
-            return $this->redirectToRoute('setting.cryptocurrency',['id'=>$id]);
-        }
-        return $this->render('App/index.html.twig', [
-            'formEditCrypto' => $form,
-            'crypto'=>$cryptocurrency,
         ]);
     }
 }
