@@ -16,7 +16,6 @@ class CoinGeckoService
     public function getMarketData(string $vsCurrency = 'usd', array $ids = [], int $perPage = 100, int $page = 1)
     {
         $url = 'https://api.coingecko.com/api/v3/coins/markets';
-        
         $response = $this->client->request('GET', $url, [
             'headers' => [
                 'accept' => 'application/json',

@@ -48,7 +48,9 @@ body {
 }
 body{
     cursor:url('/assets/images/cursor.png'),auto;
-    background: #050b1b;
+    background-image: url('/assets/images/loader2.gif');
+    background-position: top;
+    background-size: cover;
     font-family:"poppins",sans-serif;
 }
 .body-gradian{
@@ -103,6 +105,10 @@ body{
     width: 50px;
     height: auto;
 }
+.logo-primary-4{
+    width: 30px;
+    height: auto;
+}
 .logo-text{
     font-size: 3rem;
     font-weight: bolder;
@@ -118,5 +124,8 @@ body{
     color: #38618C !important;
 }
 ul{
+    list-style: none !important;
+}
+.menu-sub{
     list-style: none !important;
 }

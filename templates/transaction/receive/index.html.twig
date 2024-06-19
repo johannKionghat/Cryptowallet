@@ -1,0 +1,60 @@
+<div class="col-xl-12">
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaction /</span> Receive</h4>
+  <div class="nav-align-top mb-4">
+    <ul class="nav nav-pills mb-3" role="tablist">
+        <li class="nav-item">
+        
+        <div class="d-flex gap-2 mt-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            role="tab"
+            data-bs-toggle="tab"
+            data-bs-target="#navs-pills-top-Customer"
+            aria-controls="navs-pills-top-Customer"
+            aria-selected="true"
+          >
+              Select Crypto 
+          </button>
+          <div>
+            <a href="{{path('accueil')}}" class="btn btn-secondary">Annuler</a>
+          </div>
+        </li>
+    </ul>
+    {# content of tabs #}
+    <div class="tab-content">
+        {# view of all customers #}
+        <div class="tab-pane fade show active" id="navs-pills-top-Customer" role="tabpanel">
+          <div class="table" style="overflow:auto;">
+            <table class="table">
+              <tbody class="table-border-bottom-0">
+              {% for cryptocurrencyReceive in cryptocurrenciesReceive %}
+                  <tr>
+                  <td>
+                  <a href="{{url('transaction.receive.action',{id:cryptocurrencyReceive.id})}}">
+                    <img
+                        src="{{cryptocurrencyReceive.image}}"
+                        alt="image-crypto"
+                        class="d-block rounded"
+                        height="25"
+                        width="25"
+                        id="uploadedAvatar"
+                        style="object-fit: cover;"
+                        />
+                  </a>
+                  </td>
+                  <td>
+                  <a href="{{url('transaction.receive.action',{id:cryptocurrencyReceive.id})}}">
+                  <strong>{{cryptocurrencyReceive.name}}</strong></td></a>
+                  <td>
+                  <a href="{{url('transaction.receive.action',{id:cryptocurrencyReceive.id})}}">
+                  {{cryptocurrencyReceive.abreviation | upper}}</a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

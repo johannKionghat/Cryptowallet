@@ -1,0 +1,21 @@
+    <div class="col-md-12">
+        {% include 'partials/flashes.html.twig'%}
+        <div class="card mb-4">
+        <h5 class="card-header">Edit wallet name</h5>
+        <hr class="my-0">
+        <div class="card-body">
+            {{ form_start(formEditWallet) }}
+            <div class="row">
+                <div class="mb-3 col">
+                <label for="name" class="form-label">Name</label>
+                {{form_row(formEditWallet.Name)}}
+                </div>
+                <div class="d-flex gap-2 mt-2">
+                    {{ form_row(formEditWallet.Save) }}
+                    <a href="{{path('wallet')}}" class="btn btn-secondary">Annuler</a>
+                </div>
+            </div>
+            {{ form_end(formEditWallet) }}
+        </div>
+        </div>
+    </div>

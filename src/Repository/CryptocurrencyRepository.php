@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Cryptocurrency;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,21 +21,6 @@ class CryptocurrencyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cryptocurrency::class);
     }
-
-//    /**
-//     * @return Cryptocurrency[] Returns an array of Cryptocurrency objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
 //    public function findOneBySomeField($value): ?Cryptocurrency
 //    {

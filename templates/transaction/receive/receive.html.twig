@@ -1,0 +1,56 @@
+ <div class="col-md-12">
+ <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaction /</span> Receive</h4>
+    {% include 'partials/flashes.html.twig'%}
+        <div class="card mb-4 my-3 p-3 d-flex justify-content-center align-items-center">
+            <div class="p-3 d-flex justify-content-start align-items-center gap-2">
+                <img
+                src="{{cryptotoreceive.image}}"
+                alt="image-crypto"
+                class="d-block rounded"
+                height="25"
+                width="25"
+                id="uploadedAvatar"
+                style="object-fit: cover;"
+                />
+                <div>{{cryptotoreceive.name}}</div>
+            </div>
+            <div class="dropdown">
+            <a class="btn btn-primary dropdown-toggle d-flex" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class='menu-icon me-2 bx bxs-wallet' ></i>
+                <div>Select Wallet</div>
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                {{form_start(formSelectWallet)}}
+                <div class="m-2">
+                    {{form_row(formSelectWallet.name)}}
+                </div>
+                <div class="m-2">
+                    {{form_row(formSelectWallet.Change)}}
+                </div>
+                {{form_end(formSelectWallet)}}
+            </ul>
+        </div>
+            <div class="card-body">
+                <img src="{{qrcode}}" alt="" class="qrcode">
+            </div>
+            <div class="mb-3">
+                <label for="inputText" class="form-label" >Your receive adress</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="inputText" value="{{adressCrypto}}" disabled>
+                    <button onclick="copyBouton()" class="btn btn-secondary" type="button" id="copyButton">Copier</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script>
+        function copyBouton() {
+        var copyText = document.getElementById("inputText");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        alert("Copied the text: " + copyText.value);
+        }    
+</script>
+

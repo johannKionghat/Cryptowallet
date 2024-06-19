@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Cryptocurrency;
 use App\Entity\User;
+use App\Entity\Wallet;
+use App\Entity\WalletCrypto;
 use App\Form\RegistrationFormType;
+use App\Repository\CryptocurrencyRepository;
 use App\Security\EmailVerifier;
+use App\Services\CoinGeckoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +29,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, Security $security): Response
+    public function register(Request $request, CryptocurrencyRepository $cryptocurrencyRepository, CoinGeckoService $coinGeckoService, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, Security $security): Response
     {
         if ($security->getUser() !== null) {
             return $this->redirectToRoute('accueil');
@@ -44,22 +49,43 @@ class RegistrationController extends AbstractController
             );
 
             $entityManager->persist($user);
+
+            // create a Defult Wallet for user
+            $defaultWallet = new Wallet() ;
+            $defaultWallet->setIdUser($user);
+            $defaultWallet->setName('Default');
+            $entityManager->persist($defaultWallet);
+        
+            // create DefaultWalletCrypto for user
+            $cryptocurrencies = $cryptocurrencyRepository->findAll();
+            $initAmount=0;
+            foreach ($cryptocurrencies as $cryptocurrency) {
+                $defaultWalletCrypto=new WalletCrypto();
+                $defaultWalletCrypto->setNameCrypto($cryptocurrency->getName());
+                $defaultWalletCrypto->setWallet($defaultWallet);
+                $defaultWalletCrypto->setSolde($initAmount);
+                $defaultWalletCrypto->setCrypto($cryptocurrency);
+                $defaultWalletCrypto->setActivation(true);
+                $entityManager->persist($defaultWalletCrypto);
+            }
+            $entityManager->persist($defaultWalletCrypto);
             $entityManager->flush();
+                        
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('test@test.com', 'BitchestAdmin'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-                    ->context(['user'=>$user,'randomPassword'=>$randomPassword])
-            );
+                // generate a signed url and email it to the user
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                    (new TemplatedEmail())
+                        ->from(new Address('test@test.com', 'BitchestAdmin'))
+                        ->to($user->getEmail())
+                        ->subject('Please Confirm your Email')
+                        ->htmlTemplate('registration/confirmation_email.html.twig')
+                        ->context(['user'=>$user,'randomPassword'=>$randomPassword])
+                );
 
-            // do anything else you need here, like send an email
-            $this->addFlash('success','You have received a confirmation email, click on the link to confirm and log in with your TempKey.');
-            return $this->redirectToRoute('app_register');
-        }
+                // do anything else you need here, like send an email
+                $this->addFlash('success','You have received a confirmation email, click on the link to confirm and log in with your TempKey.');
+                return $this->redirectToRoute('app_register');
+             }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,

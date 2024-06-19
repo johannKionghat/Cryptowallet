@@ -3,48 +3,38 @@
 namespace App\Entity;
 
 use App\Repository\WalletRepository;
+use ArrayAccess;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: WalletRepository::class)]
-class Wallet
+class Wallet implements ArrayAccess
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $quantityCrypto = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'IdWalet')]
     private ?User $IdUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'IdWallet', targetEntity: Cryptocurrency::class)]
-    private Collection $IdCryptocurrency;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'wallet', targetEntity: WalletCrypto::class)]
+    private Collection $walletCryptos;
+
     public function __construct()
     {
-        $this->IdCryptocurrency = new ArrayCollection();
+        $this->walletCryptos = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getQuantityCrypto(): ?int
-    {
-        return $this->quantityCrypto;
-    }
-
-    public function setQuantityCrypto(?int $quantityCrypto): static
-    {
-        $this->quantityCrypto = $quantityCrypto;
-
-        return $this;
-    }
-
     public function getIdUser(): ?User
     {
         return $this->IdUser;
@@ -56,34 +46,65 @@ class Wallet
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Cryptocurrency>
-     */
-    public function getIdCryptocurrency(): Collection
+    public function getName(): ?string
     {
-        return $this->IdCryptocurrency;
+        return $this->name;
     }
 
-    public function addIdCryptocurrency(Cryptocurrency $idCryptocurrency): static
+    public function setName(string $name): static
     {
-        if (!$this->IdCryptocurrency->contains($idCryptocurrency)) {
-            $this->IdCryptocurrency->add($idCryptocurrency);
-            $idCryptocurrency->setIdWallet($this);
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WalletCrypto>
+     */
+    public function getWalletCryptos(): Collection
+    {
+        return $this->walletCryptos;
+    }
+
+    public function addWalletCrypto(WalletCrypto $walletCrypto): static
+    {
+        if (!$this->walletCryptos->contains($walletCrypto)) {
+            $this->walletCryptos->add($walletCrypto);
+            $walletCrypto->setWallet($this);
         }
 
         return $this;
     }
 
-    public function removeIdCryptocurrency(Cryptocurrency $idCryptocurrency): static
+    public function removeWalletCrypto(WalletCrypto $walletCrypto): static
     {
-        if ($this->IdCryptocurrency->removeElement($idCryptocurrency)) {
+        if ($this->walletCryptos->removeElement($walletCrypto)) {
             // set the owning side to null (unless already changed)
-            if ($idCryptocurrency->getIdWallet() === $this) {
-                $idCryptocurrency->setIdWallet(null);
+            if ($walletCrypto->getWallet() === $this) {
+                $walletCrypto->setWallet(null);
             }
         }
 
         return $this;
+    }
+    // ArrayAccess methods
+    public function offsetExists(mixed $offset): bool
+    {
+        return property_exists($this, $offset);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->$offset;
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->$offset = $value;
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        unset($this->$offset);
     }
 }

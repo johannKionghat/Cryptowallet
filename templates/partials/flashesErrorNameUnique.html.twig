@@ -1,0 +1,23 @@
+{% for type,  messages in app.flashes %}
+<div
+    class="bs-toast w100 my-2 toast fade show bg-{{type}}"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    >
+    <div class="toast-header">
+        <i class="bx bxs-bell me-2"></i>
+        <div class="me-auto fw-semibold">{{type | upper}}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+       {% if form.name.vars.errors|length > 0 %}
+        <div class="alert alert-danger">
+            {% for error in form.name.vars.errors %}
+                <p>{{ error.message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}

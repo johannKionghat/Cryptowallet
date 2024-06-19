@@ -3,9 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\CryptocurrencyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CryptocurrencyRepository::class)]
+#[UniqueEntity(fields:['Name'], message:'This value is already used.')]
+
 class Cryptocurrency
 {
     #[ORM\Id]
@@ -22,12 +27,13 @@ class Cryptocurrency
     #[ORM\Column(length: 255)]
     private ?string $Abreviation = 'null';
 
-    #[ORM\ManyToOne(inversedBy: 'IdCryptocurrency')]
-    private ?Wallet $IdWallet = null;
+    #[ORM\OneToMany(mappedBy: 'crypto', targetEntity: WalletCrypto::class)]
+    private Collection $walletCryptos;
 
-    #[ORM\Column]
-    private ?int $soldeCrypto = 0;
-
+    public function __construct()
+    {
+        $this->walletCryptos = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -68,26 +74,32 @@ class Cryptocurrency
         return $this;
     }
 
-    public function getIdWallet(): ?Wallet
+    /**
+     * @return Collection<int, WalletCrypto>
+     */
+    public function getWalletCryptos(): Collection
     {
-        return $this->IdWallet;
+        return $this->walletCryptos;
     }
 
-    public function setIdWallet(?Wallet $IdWallet): static
+    public function addWalletCrypto(WalletCrypto $walletCrypto): static
     {
-        $this->IdWallet = $IdWallet;
+        if (!$this->walletCryptos->contains($walletCrypto)) {
+            $this->walletCryptos->add($walletCrypto);
+            $walletCrypto->setCrypto($this);
+        }
 
         return $this;
     }
 
-    public function getSoldeCrypto(): ?int
+    public function removeWalletCrypto(WalletCrypto $walletCrypto): static
     {
-        return $this->soldeCrypto;
-    }
-
-    public function setSoldeCrypto(int $soldeCrypto): static
-    {
-        $this->soldeCrypto = $soldeCrypto;
+        if ($this->walletCryptos->removeElement($walletCrypto)) {
+            // set the owning side to null (unless already changed)
+            if ($walletCrypto->getCrypto() === $this) {
+                $walletCrypto->setCrypto(null);
+            }
+        }
 
         return $this;
     }

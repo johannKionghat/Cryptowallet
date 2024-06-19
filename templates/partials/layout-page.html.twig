@@ -12,45 +12,114 @@
          <div class="col-12">
           {% include 'partials/flashes.html.twig' %}
          </div>
-        {% if app.current_route == 'accueil' %}
-            {# cardcrypto #}
-            {% include 'partials/carrousselbalance.html.twig' %}
-            {% include 'partials/tabscrypto.html.twig' %}
-            {# cardcrypto #}
-        {% endif %}
-        {% if app.current_route == 'setting.profile' %}
-          {% include 'user/profile.html.twig'%}
-        {% endif %}
-        {% if app.current_route == 'setting.security' %}
-          {% include 'user/security.html.twig'%}
-        {% endif %}
-        {# admin customer layout #}
-        {% if app.current_route == 'setting.addCustomer' %}
-          {% include 'admin/customer/addCustomerlayout.html.twig'%}
-        {% endif %}
-        {% if app.current_route == 'setting.editCustomer' %}
-          {% include 'admin/customer/editCustomerlayout.html.twig'%}
-        {% endif %}
-        {% if app.current_route == 'setting.deleteCustomer' %}
-          {% include 'admin/customer/deleteCustomerlayout.html.twig'%}
-        {% endif %}
-        {% if app.current_route == 'setting.customer' %}
-          {% include 'admin/customer/manageCustomer.html.twig'%}
-        {% endif %}
-        {# admin cryptocurrency layout #}
-         {% if app.current_route == 'setting.addCrypto' %}
-          {% include 'admin/cryptocurrency/addCryptocurrencylayout.html.twig'%}
-        {% endif %}
-        {% if app.current_route == 'setting.editCrypto' %}
-          {% include 'admin/cryptocurrency/editCryptocurrencylayout.html.twig'%}
-        {% endif %}
-        {% if app.current_route == 'setting.deleteCrypto' %}
-          {% include 'admin/cryptocurrency/deleteCryptocurrencylayout.html.twig'%}
-        {% endif %}
-        {% if app.current_route == 'setting.cryptocurrency' %}
-          {% include 'admin/cryptocurrency/manageCryptocurrency.html.twig'%}
-        {% endif %}
-        </div>
+
+          {# ----------------------------------------------Accueil #}
+          {% if app.current_route == 'accueil' %}
+              {# cardcrypto #}
+              {% include 'partials/carrousselbalance.html.twig' %}
+              {% include 'partials/tabscrypto.html.twig' %}
+              {# cardcrypto #}
+          {% endif %}
+          {# ----------------------------------------------Accueil #}
+
+          {# ----------------------------------------------Transaction #}
+          {# buy #}
+          {% if app.current_route == 'transaction.buy' %}
+              {% include 'transaction/buy/index.html.twig'%}
+          {% endif %}
+          {% if app.current_route == 'transaction.buy.form' %}
+              {% include 'transaction/buy/buy.html.twig'%}
+          {% endif %}
+          {#  buy #}
+
+          {#  sell #}
+          {% if app.current_route == 'transaction.sell' %}
+              {% include 'transaction/sell.html.twig'%}
+          {% endif %}
+
+          {# historic #}
+          {% if app.current_route == 'transaction.historic' %}
+              {% include 'transaction/historic.html.twig'%}
+          {% endif %}
+
+          {#  receive #}
+          {% if app.current_route == 'transaction.receive' %}
+              {% include 'transaction/receive/index.html.twig'%}
+          {% endif %}
+          {% if app.current_route == 'transaction.receive.action' %}
+              {% include 'transaction/receive/receive.html.twig'%}
+          {% endif %}
+
+          {# send #}
+          {% if app.current_route == 'transaction.send' %}
+              {% include 'transaction/send/index.html.twig'%}
+          {% endif %}
+          {% if app.current_route == 'transaction.send.form' %}
+              {% include 'transaction/send/send.html.twig'%}
+          {% endif %}
+
+          {#  swap #}
+          {% if app.current_route == 'transaction.swap' %}
+            {% include 'transaction/swap.html.twig'%}
+          {% endif %}
+
+          {#  convert #}
+          {% if app.current_route == 'transaction.convert' %}
+            {% include 'transaction/convert.html.twig'%}
+          {% endif %}
+          {# ----------------------------------------------Transaction #}
+
+          {# ----------------------------------------------wallet #}
+          {% if app.current_route == 'wallet' %}
+              {% include 'wallet/index.html.twig'%}
+          {% endif %}
+          {% if app.current_route == 'wallet.add' %}
+              {% include 'wallet/addwallet.html.twig'%}
+          {% endif %}
+          {% if app.current_route == 'wallet.delete' %}
+              {% include 'wallet/delete.html.twig'%}
+          {% endif %}
+          {% if app.current_route == 'wallet.edit' %}
+              {% include 'wallet/edit.html.twig'%}
+          {% endif %}
+          {# ----------------------------------------------wallet #}
+
+          {# -----------------------------------------------settings #}
+            {% if app.current_route == 'setting.profile' %}
+            {% include 'settings/user/profile.html.twig'%}
+            {% endif %}
+            {% if app.current_route == 'setting.security' %}
+              {% include 'settings/user/security.html.twig'%}
+            {% endif %}
+            {# admin customer layout #}
+            {% if app.current_route == 'setting.addCustomer' %}
+              {% include 'settings/admin/customer/addCustomerlayout.html.twig'%}
+            {% endif %}
+            {% if app.current_route == 'setting.editCustomer' %}
+              {% include 'settings/admin/customer/editCustomerlayout.html.twig'%}
+            {% endif %}
+            {% if app.current_route == 'setting.deleteCustomer' %}
+              {% include 'settings/admin/customer/deleteCustomerlayout.html.twig'%}
+            {% endif %}
+            {% if app.current_route == 'setting.customer' %}
+              {% include 'settings/admin/customer/manageCustomer.html.twig'%}
+            {% endif %}
+            {# admin cryptocurrency layout #}
+            {% if app.current_route == 'setting.addCrypto' %}
+              {% include 'settings/admin/cryptocurrency/addCryptocurrencylayout.html.twig'%}
+            {% endif %}
+            {% if app.current_route == 'setting.editCrypto' %}
+              {% include 'settings/admin/cryptocurrency/editCryptocurrencylayout.html.twig'%}
+            {% endif %}
+            {% if app.current_route == 'setting.deleteCrypto' %}
+              {% include 'settings/admin/cryptocurrency/deleteCryptocurrencylayout.html.twig'%}
+            {% endif %}
+            {% if app.current_route == 'setting.cryptocurrency' %}
+              {% include 'settings/admin/cryptocurrency/manageCryptocurrency.html.twig'%}
+            {% endif %}
+            </div>
+          {# ------------------------------------------------settings #}
+
     </div>
     <!-- / Content -->
 

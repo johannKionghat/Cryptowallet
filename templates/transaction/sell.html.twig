@@ -1,0 +1,10 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sell Cryptocurrency</h1>
+    {{ form_start(formSellCrypto) }}
+    {{ form_widget(formSellCrypto) }}
+    <button class="btn">Sell</button>
+    {{ form_end(formSellCrypto) }}
+{% endblock %}
