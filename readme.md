@@ -1,5 +1,3 @@
-Bien sûr ! Voici une version enrichie avec des emojis :
-
 ```markdown
 # 💰 Bitchest 💰
 
@@ -82,5 +80,3 @@ Les contributions sont les bienvenues ! Veuillez soumettre une pull request ou o
 
 Merci d'utiliser Bitchest ! Si vous avez des questions ou des suggestions, n'hésitez pas à nous contacter. 😊
 ```
-
-N'hésitez pas à ajuster ou ajouter des emojis supplémentaires selon vos préférences !
