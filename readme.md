@@ -1,4 +1,3 @@
-```markdown
 # 💰 Bitchest 💰
 
 Bitchest est une application web de cryptomonnaie qui sert de portefeuille électronique. Elle permet d'acheter, de vendre, d'envoyer des cryptomonnaies et de consulter l'historique des transactions.
@@ -27,7 +26,7 @@ Suivez les étapes ci-dessous pour configurer et démarrer le projet :
 
 1. 📥 Clonez le dépôt :
     ```bash
-    git clone https://github.com/votre-utilisateur/bitchest.git
+    https://github.com/johannKionghat/bitchest.git
     cd bitchest
     ```
 
@@ -79,4 +78,3 @@ Les contributions sont les bienvenues ! Veuillez soumettre une pull request ou o
 ---
 
 Merci d'utiliser Bitchest ! Si vous avez des questions ou des suggestions, n'hésitez pas à nous contacter. 😊
-```
