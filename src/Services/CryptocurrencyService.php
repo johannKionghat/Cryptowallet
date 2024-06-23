@@ -47,25 +47,18 @@ class CryptocurrencyService
 
     public function updateWalletBalances($walletCryptoUser, $walletCryptoUserTo, $amount, $nameCrypto, $idWalletChoose, $idWalletTo)
     {
-        foreach ($walletCryptoUser as $wcu) {
-            if( $wcu->getNameCrypto() == $nameCrypto && $wcu->getWallet()->getId()==$idWalletChoose){
-                if ($wcu->getSolde() < $amount) {
-                    return false;
-                } else {
-                    $wcu->setSolde($wcu->getSolde() - $amount);
-                    $this->em->persist($wcu);
-                    $this->em->flush();
-                }
-            }
-        }
         
-        foreach ($walletCryptoUserTo as $wcu) {
-            if( $wcu->getNameCrypto() == $nameCrypto && $wcu->getWallet()->getId()==$idWalletTo){
-                $wcu->setSolde($wcu->getSolde() + $amount);
-                $this->em->persist($wcu);
-                $this->em->flush();
-            }
+        if ($walletCryptoUser->getSolde() < $amount) {
+            return false;
+        } else {
+            $walletCryptoUser->setSolde($walletCryptoUser->getSolde() - $amount);
+            $this->em->persist($walletCryptoUser);
+            $this->em->flush();
+            $walletCryptoUserTo->setSolde($walletCryptoUserTo->getSolde() + $amount);
+            $this->em->persist($walletCryptoUserTo);
+            $this->em->flush();
         }
         return true;
-    }
+    }   
 }
+    

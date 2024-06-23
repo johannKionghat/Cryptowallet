@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\TransactionRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
@@ -14,97 +13,112 @@ class Transaction
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $DateTransactionAT = null;
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    private ?User $user = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $TypeTransaction = null;
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    private ?WalletCrypto $walletCrypto = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $AmountTransaction = null;
+    #[ORM\Column]
+    private ?float $amountCrypto = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $PriceCrypto = null;
+    #[ORM\Column]
+    private ?float $amountEuro = null;
 
-    #[ORM\ManyToOne(inversedBy: 'IdTransaction')]
-    private ?User $IdUser = null;
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Cryptocurrency $IdCryptocurrency = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $dateAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'usersToTransaction')]
+    private ?User $userTo = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateTransactionAT(): ?\DateTimeInterface
+    public function getUser(): ?User
     {
-        return $this->DateTransactionAT;
+        return $this->user;
     }
 
-    public function setDateTransactionAT(?\DateTimeInterface $DateTransactionAT): static
+    public function setUser(?User $user): static
     {
-        $this->DateTransactionAT = $DateTransactionAT;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getTypeTransaction(): ?string
+    public function getWalletCrypto(): ?WalletCrypto
     {
-        return $this->TypeTransaction;
+        return $this->walletCrypto;
     }
 
-    public function setTypeTransaction(?string $TypeTransaction): static
+    public function setWalletCrypto(?WalletCrypto $walletCrypto): static
     {
-        $this->TypeTransaction = $TypeTransaction;
+        $this->walletCrypto = $walletCrypto;
 
         return $this;
     }
 
-    public function getAmountTransaction(): ?int
+    public function getAmountCrypto(): ?float
     {
-        return $this->AmountTransaction;
+        return $this->amountCrypto;
     }
 
-    public function setAmountTransaction(?int $AmountTransaction): static
+    public function setAmountCrypto(float $amountCrypto): static
     {
-        $this->AmountTransaction = $AmountTransaction;
+        $this->amountCrypto = $amountCrypto;
 
         return $this;
     }
 
-    public function getPriceCrypto(): ?int
+    public function getAmountEuro(): ?float
     {
-        return $this->PriceCrypto;
+        return $this->amountEuro;
     }
 
-    public function setPriceCrypto(?int $PriceCrypto): static
+    public function setAmountEuro(float $amountEuro): static
     {
-        $this->PriceCrypto = $PriceCrypto;
+        $this->amountEuro = $amountEuro;
 
         return $this;
     }
 
-    public function getIdUser(): ?User
+    public function getType(): ?string
     {
-        return $this->IdUser;
+        return $this->type;
     }
 
-    public function setIdUser(?User $IdUser): static
+    public function setType(string $type): static
     {
-        $this->IdUser = $IdUser;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getIdCryptocurrency(): ?Cryptocurrency
+    public function getDateAt(): ?\DateTimeImmutable
     {
-        return $this->IdCryptocurrency;
+        return $this->dateAt;
     }
 
-    public function setIdCryptocurrency(?Cryptocurrency $IdCryptocurrency): static
+    public function setDateAt(\DateTimeImmutable $dateAt): static
     {
-        $this->IdCryptocurrency = $IdCryptocurrency;
+        $this->dateAt = $dateAt;
+
+        return $this;
+    }
+
+    public function getUserTo(): ?User
+    {
+        return $this->userTo;
+    }
+
+    public function setUserTo(?User $userTo): static
+    {
+        $this->userTo = $userTo;
 
         return $this;
     }

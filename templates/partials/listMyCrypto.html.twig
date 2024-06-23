@@ -1,42 +1,43 @@
 <ul class="p-0 m-0">
 {% for crypto in marketData %}
-<li class="d-flex mb-4 pb-1">
-    <div class="avatar flex-shrink-0 me-3">
-    <img src="{{ crypto.image }}" alt="{{ crypto.name }} logo">
-    </div>
-    <div class="d-flex w-100 flex-wrap  justify-content-between gap-2">
-    <div class="me-2">
-        <h6 class="mb-0"
-        data-bs-toggle="tooltip"
-        data-bs-offset="0,4"
-        data-bs-placement="right"
-        data-bs-html="true"
-        title="<span>Coin</span>"
-        >{{ crypto.name }}</h6>
-        <small class="text-muted" data-bs-toggle="tooltip"
-        data-bs-offset="0,4"
-        data-bs-placement="right"
-        data-bs-html="true"
-        title="<span>Current Price</span>"
-        >
-        €{{ crypto.current_price|number_format(2, '.', ',') }}
-        </small>
-    </div>
-    <div class="d-flex gap-2 justify-content-end">
-        <div class="">
-            <div>
-                <small class="" data-bs-toggle="tooltip"
-                    data-bs-offset="0,4"
-                    data-bs-placement="right"
-                    data-bs-html="true"
-                    title="<span>My balance</span>"
-                    >
-                    
-                    {% for wc in walletCrypto %}
-                        {% if crypto.id | lower  == wc.crypto.name |lower %}
+{% for wc in walletCrypto %}
+{# condition to display only the crypto of current wallet #}
+{% if crypto.id | lower  == wc.crypto.name |lower %}
+    <a href="{{path('cryptoDetails',{id:crypto.id,idWalletChoose:wc.wallet.id})}}">
+    <li class="d-flex mb-4 pb-1">
+        <div class="avatar flex-shrink-0 me-3">
+        <img src="{{ crypto.image }}" alt="{{ crypto.name }} logo">
+        </div>
+        <div class="d-flex w-100 flex-wrap  justify-content-between gap-2">
+        <div class="me-2">
+            <h6 class="mb-0"
+            data-bs-toggle="tooltip"
+            data-bs-offset="0,4"
+            data-bs-placement="right"
+            data-bs-html="true"
+            title="<span>Coin</span>"
+            >{{ crypto.name }}</h6>
+            <small class="text-muted" data-bs-toggle="tooltip"
+            data-bs-offset="0,4"
+            data-bs-placement="right"
+            data-bs-html="true"
+            title="<span>Current Price</span>"
+            >
+            €{{ crypto.current_price|number_format(2, '.', ',') }}
+            </small>
+        </div>
+        <div class="d-flex gap-2 justify-content-end">
+            <div class="">
+                <div>
+                    <small class="" data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="right"
+                        data-bs-html="true"
+                        title="<span>My balance</span>"
+                        >
                             <div class="d-flex" style="justify-content: end; flex-direction: column; align-items:end;">
-                                <div>{{ (wc.solde / crypto.current_price)|number_format(5, '.', ',')}} {{crypto.symbol | upper}}</div>
-                                <div>{{wc.solde|number_format(2, '.', ',')}} €</div>
+                                <div><small>{{ wc.solde|number_format(6, '.', ',')}} {{crypto.symbol | upper}}</small></div>
+                                <div><small>{{(wc.solde * crypto.current_price)|number_format(2, '.', ',')}} €</small></div>
                                 <div>
                                     <p  class="{{ crypto.price_change_percentage_24h < 0 ? 'text-danger' : 'text-success' }}"
                                     data-bs-toggle="tooltip"
@@ -49,17 +50,18 @@
                                     </p>
                                 </div>
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                </small>
+                    </small>
+                </div>
             </div>
+            <div id="sparkline-{{ crypto.id }}" class="sparkline">
         </div>
-        <div id="sparkline-{{ crypto.id }}" class="sparkline">
-    </div>
-    </div>
-</li>
-<hr>
+        </div>
+    </li>
+    <hr>
+ {% endif %}
 {% endfor %}
+{% endfor %}
+</a>
 </ul>
 <style>
     .crypto-table {

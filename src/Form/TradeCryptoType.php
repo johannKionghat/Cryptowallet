@@ -36,7 +36,7 @@ class TradeCryptoType extends AbstractType
                     'class'=>'form-control'
                 ]
             ])
-            ->add('Buy',SubmitType::class,[
+            ->add('Next',SubmitType::class,[
                 'attr'=>['class'=>'btn btn-primary']
             ]);
     }

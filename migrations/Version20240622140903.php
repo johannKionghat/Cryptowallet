@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240617221033 extends AbstractMigration
+final class Version20240622140903 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20240617221033 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE wallet_crypto ADD name_crypto VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE transaction ADD date_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE wallet_crypto DROP name_crypto');
+        $this->addSql('ALTER TABLE transaction DROP date_at');
     }
 }

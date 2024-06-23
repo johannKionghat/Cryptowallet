@@ -59,26 +59,11 @@
                 <div>Sell</div>
               </a>
             </li>
-            <!-- Swap -->
-          <li class="menu-item {{ app.current_route == 'transaction.swap' ? 'active' : ''}}">
-            <a href="{{path('transaction.swap')}}" class="menu-link">
-              <i class='me-2 bx bx-transfer-alt me-2'></i>
-              <div>Swap</div>
-            </a>
-          </li>
           <!-- History -->
           <li class="menu-item {{ app.current_route == 'transaction.historic' ? 'active' : ''}}">
             <a href="{{path('transaction.historic')}}" class="menu-link">
               <i class='me-2 bx bx-history' ></i>
               <div>History</div>
-            </a>
-          </li>
-          <li class="menu-item {{ app.current_route == 'transaction.convert' ? 'active' : ''}}">
-            <a href="{{path('transaction.convert',{id:app.user.id})}}" class="menu-link ">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=" me-2 bi bi-arrow-left-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
-              </svg>
-              <div>Convert</div>
             </a>
           </li>
         </ul>

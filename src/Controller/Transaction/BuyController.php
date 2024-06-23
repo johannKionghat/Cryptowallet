@@ -2,6 +2,7 @@
 
 namespace App\Controller\Transaction;
 
+use App\Entity\Transaction;
 use App\Entity\WalletCrypto;
 use App\Form\BuyCryptoType;
 use App\Form\TradeCryptoType;
@@ -12,6 +13,7 @@ use App\Repository\WalletCryptoRepository;
 use App\Repository\WalletRepository;
 use App\Services\CoinGeckoService;
 use App\Services\CryptocurrencyService;
+use App\Services\TransactionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,6 +58,8 @@ class BuyController extends AbstractController
         WalletRepository $walletRepository, 
         WalletCryptoRepository $walletCryptoRepository,
         CryptocurrencyService $cryptocurrencyService,
+        CoinGeckoService $coinGeckoService,
+        TransactionService $transactionService,
     ): Response
     {
         $cryptocurrency = $cryptocurrencyService->findCryptocurrency($id);
@@ -63,19 +67,26 @@ class BuyController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $userEmail = $this->getUser()->getUserIdentifier();
             $user = $userRepository->findOneBy(array('email'=>$userEmail));
             $cryptocurrency = $cryptocurrencyRepository->findOneBy(array('id'=>$id));
             $amount = $form->get('amount')->getData();
+            $amountEuro = $form->get('amount')->getData();
+            $wallet = $walletRepository->findOneBy(['id' => $idWalletChoose]);
+            $walletCrypto = $walletCryptoRepository->findOneBy(['wallet' => $wallet, 'crypto' => $cryptocurrency]);
+
+            $listCrypto [] = strtolower($cryptocurrency->getName());
+            $marketData = $coinGeckoService->getMarketData('eur', $listCrypto, 10, 1);
+            $amount=($amount / $marketData[0]['current_price']); 
             $balanceFrom = $user->getBalance();
+            $transactionType='Buy';
             
-            if ($balanceFrom < $amount) {
+            if ($balanceFrom < $amountEuro) {
                 $this->addFlash('danger','Transaction Failed : Insufisance Balance € '.$balanceFrom - $amount);
                 return $this->redirectToRoute('transaction.buy');
             }
     
-            $wallet = $walletRepository->findOneBy(['id' => $idWalletChoose]);
-            $walletCrypto = $walletCryptoRepository->findOneBy(['wallet' => $wallet, 'crypto' => $cryptocurrency]);
             if (!$walletCrypto) {
                 $walletCrypto = new WalletCrypto();
                 $walletCrypto->setNameCrypto($cryptocurrency->getName());
@@ -87,7 +98,8 @@ class BuyController extends AbstractController
             }
     
             $walletCrypto->setSolde($walletCrypto->getSolde() + $amount);
-            $user->setBalance($balanceFrom - $amount);
+            $user->setBalance($balanceFrom - $amountEuro);
+            $transactionService->logTransaction($user, $user , $amount, $walletCrypto, $amountEuro, $transactionType);
             $em->flush();
     
             $this->addFlash('success', 'Cryptocurrency bought successfully!');

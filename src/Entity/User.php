@@ -81,27 +81,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $balance = 500;
 
-    #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: Transaction::class)]
-    private Collection $IdCryptocurrency;
-
-    #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: Transaction::class)]
     private Collection $IdTransaction;
 
     #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: Wallet::class)]
     private Collection $IdWalet;
 
-    #[ORM\OneToMany(mappedBy: 'IdUser', targetEntity: StoryTransaction::class)]
-    private Collection $IdStoryTransaction;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $thumbnail = 'avatar.png';
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Transaction::class)]
+    private Collection $transactions;
+
+    #[ORM\OneToMany(mappedBy: 'userTo', targetEntity: Transaction::class)]
+    private Collection $usersToTransaction;
+
     public function __construct()
     {
-        $this->IdCryptocurrency = new ArrayCollection();
-        $this->IdTransaction = new ArrayCollection();
         $this->IdWalet = new ArrayCollection();
-        $this->IdStoryTransaction = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
+        $this->usersToTransaction = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -367,66 +365,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Transaction>
-     */
-    public function getIdCryptocurrency(): Collection
-    {
-        return $this->IdCryptocurrency;
-    }
-
-    public function addIdCryptocurrency(Transaction $idCryptocurrency): static
-    {
-        if (!$this->IdCryptocurrency->contains($idCryptocurrency)) {
-            $this->IdCryptocurrency->add($idCryptocurrency);
-            $idCryptocurrency->setIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdCryptocurrency(Transaction $idCryptocurrency): static
-    {
-        if ($this->IdCryptocurrency->removeElement($idCryptocurrency)) {
-            // set the owning side to null (unless already changed)
-            if ($idCryptocurrency->getIdUser() === $this) {
-                $idCryptocurrency->setIdUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Transaction>
-     */
-    public function getIdTransaction(): Collection
-    {
-        return $this->IdTransaction;
-    }
-
-    public function addIdTransaction(Transaction $idTransaction): static
-    {
-        if (!$this->IdTransaction->contains($idTransaction)) {
-            $this->IdTransaction->add($idTransaction);
-            $idTransaction->setIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdTransaction(Transaction $idTransaction): static
-    {
-        if ($this->IdTransaction->removeElement($idTransaction)) {
-            // set the owning side to null (unless already changed)
-            if ($idTransaction->getIdUser() === $this) {
-                $idTransaction->setIdUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Wallet>
      */
     public function getIdWalet(): Collection
@@ -456,36 +394,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, StoryTransaction>
-     */
-    public function getIdStoryTransaction(): Collection
-    {
-        return $this->IdStoryTransaction;
-    }
-
-    public function addIdStoryTransaction(StoryTransaction $idStoryTransaction): static
-    {
-        if (!$this->IdStoryTransaction->contains($idStoryTransaction)) {
-            $this->IdStoryTransaction->add($idStoryTransaction);
-            $idStoryTransaction->setIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdStoryTransaction(StoryTransaction $idStoryTransaction): static
-    {
-        if ($this->IdStoryTransaction->removeElement($idStoryTransaction)) {
-            // set the owning side to null (unless already changed)
-            if ($idStoryTransaction->getIdUser() === $this) {
-                $idStoryTransaction->setIdUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getThumbnail(): ?string
     {
         return $this->thumbnail;
@@ -494,6 +402,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setThumbnail(?string $thumbnail): static
     {
         $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): static
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions->add($transaction);
+            $transaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): static
+    {
+        if ($this->transactions->removeElement($transaction)) {
+            // set the owning side to null (unless already changed)
+            if ($transaction->getUser() === $this) {
+                $transaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getUsersToTransaction(): Collection
+    {
+        return $this->usersToTransaction;
+    }
+
+    public function addUsersToTransaction(Transaction $usersToTransaction): static
+    {
+        if (!$this->usersToTransaction->contains($usersToTransaction)) {
+            $this->usersToTransaction->add($usersToTransaction);
+            $usersToTransaction->setUserTo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersToTransaction(Transaction $usersToTransaction): static
+    {
+        if ($this->usersToTransaction->removeElement($usersToTransaction)) {
+            // set the owning side to null (unless already changed)
+            if ($usersToTransaction->getUserTo() === $this) {
+                $usersToTransaction->setUserTo(null);
+            }
+        }
 
         return $this;
     }

@@ -1,10 +1,8 @@
 <?php
 namespace App\Controller\Application;
 
-use App\Entity\Wallet;
 use App\Form\ChooseWalletType;
 use App\Repository\CryptocurrencyRepository;
-use App\Repository\UserRepository;
 use App\Repository\WalletCryptoRepository;
 use App\Repository\WalletRepository;
 use App\Services\UserService;
@@ -40,16 +38,20 @@ class AppController extends AbstractController
             $userWalletChoose = $formChooseWallet->getData();
         }
 
-        // Select cryptocurrencies of the chosen wallet
-        $walletCryptos = $walletCryptoRepository->findBy(array('wallet'=>$userWalletChoose));
-        $soldeCryptoWalletCard=0;
-        foreach( $walletCryptos as $wc) {
-            $soldeCryptoWalletCard += $wc->getSolde();
-        }
         $cryptocurrencies = $cryptocurrencyService->getAllCryptocurrencies();
         $listCrypto = $cryptocurrencyService->getCryptocurrencyNames();
         $marketData = $coinGeckoService->getMarketData('eur', $listCrypto, 10, 1);
+        // Select cryptocurrencies of the chosen wallet
+        $walletCryptos = $walletCryptoRepository->findBy(array('wallet'=>$userWalletChoose));
 
+        $soldeCryptoWalletCard=0;
+        foreach( $walletCryptos as $wc) {
+            $arrayCrypto = strTolower($wc->getNameCrypto());
+            $cryptoEuro = $coinGeckoService->getMarketData('eur', [$arrayCrypto], 10, 1);
+            $soldeEuro = $wc->getSolde() * $cryptoEuro[0]['current_price'];
+            $soldeCryptoWalletCard += $soldeEuro;
+        }
+        
         return $this->render('App/index.html.twig', [
             'soldeCryptoWalletCard'=>$soldeCryptoWalletCard,
             'cryptocurrencies' => $cryptocurrencies,
@@ -57,6 +59,30 @@ class AppController extends AbstractController
             'userWalletChoose' => $userWalletChoose,
             'formChooseWallet' => $formChooseWallet,
             'marketData' => $marketData,
+        ]);
+    }
+    #[Route(path:'cryptoDetails/{id}/{idWalletChoose}', name:'cryptoDetails')]
+    public function showDetails(
+        $id,
+        $idWalletChoose,
+        CoinGeckoDataGraph $coinGeckoDataGraph,
+        WalletCryptoRepository $walletCryptoRepository,
+        WalletRepository $walletRepository,
+        CryptocurrencyRepository $cryptocurrencyRepository,
+        CoinGeckoService $coinGeckoService,
+    ): Response
+    {
+        $w=$walletRepository->findOneBy(array('id'=>$idWalletChoose));
+        $wc=$walletCryptoRepository->findOneBy(array('wallet'=>$w,'nameCrypto'=>$id));
+        $c=$cryptocurrencyRepository->findOneBy(array('Name'=>strtoupper($id)));
+        $marketChart = $coinGeckoDataGraph->getMarketChart($id, 'eur', 360);
+        $listCrypto[] = strtolower($c->getName()); 
+        $marketData = $coinGeckoService->getMarketData('eur', $listCrypto, 10, 1);
+        return $this->render('App/index.html.twig', [
+            'm'=>$marketData,
+            'c'=>$c,
+            'wc'=>$wc,
+            'marketChart'=> $marketChart,
         ]);
     }
 }

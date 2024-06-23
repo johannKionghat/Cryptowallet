@@ -1,0 +1,37 @@
+<div class="col-xl-12">
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaction /</span> Sell</h4>
+
+  <div class="nav-align-top mb-4">
+    <ul class="nav nav-pills mb-3" role="tablist">
+        <li class="nav-item">
+        <button
+            type="button"
+            class="nav-link active"
+            role="tab"
+            data-bs-toggle="tab"
+            data-bs-target="#navs-pills-top-Customer"
+            aria-controls="navs-pills-top-Customer"
+            aria-selected="true"
+        >
+            Select Crypto and Wallet From
+        </button>
+        </li>
+    </ul>
+    <div class="tab-content">
+      {{ form_start(formSellStep1) }}
+        <div class="mb-3 col">
+          <label class="form-label" for="country">Select Crypto</label>
+          {{form_row(formSellStep1.cryptos)}}
+        </div>
+        <div class="mb-3 col">
+          <label class="form-label" for="country">Select Wallet From</label>
+          {{form_row(formSellStep1.wallets)}}
+        </div>
+        <div class="d-flex gap-2 mt-2">
+                {{ form_row(formSellStep1.Next) }}
+                <a href="{{path('accueil')}}" class="btn btn-secondary">Annuler</a>
+            </div>
+      {{ form_end(formSellStep1) }}
+    </div>
+  </div>
+</div>

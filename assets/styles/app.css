@@ -129,3 +129,15 @@ ul{
 .menu-sub{
     list-style: none !important;
 }
+.cardTransaction{
+    display: flex;
+    flex: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 1px 10px 20px rgba(0, 0, 0, 0.26);
+    width: 100px;
+    height: 100px;
+}

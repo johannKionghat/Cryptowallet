@@ -1,0 +1,66 @@
+<div class="col-12">
+    <div class="card p-2">
+        <div class="d-flex flex-column justify-content-center align-items-center gap-3 p-3">
+            <div><img class="logo-primary-3" src="{{c.image}}" alt=""></div>
+            <div><h5>{{wc.solde}} {{c.abreviation|upper}}</h5></div>
+            <div><small>= {{wc.solde * m.0.current_price}} €</small></div>
+        </div>
+        <div class="d-flex mb-3 flex-wrap gap-3 justify-content-center align-items-center">
+            <a href="{{path('transaction.send')}}" class="menu-link">
+                <button class="btn btn-secondary">
+                    <i class='me-2 bx bxs-up-arrow-circle'></i>
+                    <div>Send</div>
+                </button>
+            </a>
+        
+            <a href="{{path('transaction.receive')}}" class="menu-link">
+                <button class="btn btn-secondary">
+                    <i class='bx bxs-down-arrow-circle me-2'></i>
+                    <div>Receive</div>
+                </button>
+            </a>
+            </button>
+            <a href="{{path('transaction.buy')}}" class="menu-link ">
+                <button class="btn btn-secondary">
+                <i class='bx bx-trending-up me-2'></i>
+                <div>Buy</div>
+                </button>
+            </a>
+            <a href="{{path('transaction.sell')}}" class="menu-link ">
+                <button class="btn btn-secondary">
+                <i class='bx bx-trending-down me-2'></i>
+                <div>Sell</div>
+                </button>
+            </a>
+        </div>
+        <div id="container" style="width:100%; height:295px;"></div>
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const marketData = {{ marketChart.prices|json_encode|raw }};
+
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'line'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xAxis: {
+                            type: 'datetime'
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            }
+                        },
+                        series: [{
+                            name: '{{c.Name}}',
+                            data: marketData.map(point => [point[0], point[1]])
+                        }]
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>

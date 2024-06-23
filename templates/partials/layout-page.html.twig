@@ -17,11 +17,15 @@
           {% if app.current_route == 'accueil' %}
               {# cardcrypto #}
               {% include 'partials/carrousselbalance.html.twig' %}
+              {% include 'partials/cardTransactions.html.twig' %}
               {% include 'partials/tabscrypto.html.twig' %}
               {# cardcrypto #}
           {% endif %}
           {# ----------------------------------------------Accueil #}
-
+          {# show details crypto with graph using highchart #}
+          {% if app.current_route == 'cryptoDetails' %}
+              {% include 'partials/cryptoDetails.html.twig'%}
+          {% endif %}
           {# ----------------------------------------------Transaction #}
           {# buy #}
           {% if app.current_route == 'transaction.buy' %}
@@ -34,12 +38,14 @@
 
           {#  sell #}
           {% if app.current_route == 'transaction.sell' %}
-              {% include 'transaction/sell.html.twig'%}
+              {% include 'transaction/sell/index.html.twig'%}
           {% endif %}
-
+          {% if app.current_route == 'transaction.sell.form' %}
+              {% include 'transaction/sell/sell.html.twig'%}
+          {% endif %}
           {# historic #}
           {% if app.current_route == 'transaction.historic' %}
-              {% include 'transaction/historic.html.twig'%}
+              {% include 'transaction/historic/historic.html.twig'%}
           {% endif %}
 
           {#  receive #}
@@ -56,16 +62,6 @@
           {% endif %}
           {% if app.current_route == 'transaction.send.form' %}
               {% include 'transaction/send/send.html.twig'%}
-          {% endif %}
-
-          {#  swap #}
-          {% if app.current_route == 'transaction.swap' %}
-            {% include 'transaction/swap.html.twig'%}
-          {% endif %}
-
-          {#  convert #}
-          {% if app.current_route == 'transaction.convert' %}
-            {% include 'transaction/convert.html.twig'%}
           {% endif %}
           {# ----------------------------------------------Transaction #}
 

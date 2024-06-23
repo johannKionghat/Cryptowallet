@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WalletCryptoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,9 +16,9 @@ class WalletCrypto
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '6')]
     private ?string $solde = null;
-
+    
     #[ORM\Column]
     private ?bool $activation = null;
 
@@ -28,6 +30,14 @@ class WalletCrypto
 
     #[ORM\Column(length: 255)]
     private ?string $nameCrypto = null;
+
+    #[ORM\OneToMany(mappedBy: 'walletCrypto', targetEntity: Transaction::class)]
+    private Collection $transactions;
+
+    public function __construct()
+    {
+        $this->transactions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,36 @@ class WalletCrypto
     public function setNameCrypto(string $nameCrypto): static
     {
         $this->nameCrypto = $nameCrypto;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): static
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions->add($transaction);
+            $transaction->setWalletCrypto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): static
+    {
+        if ($this->transactions->removeElement($transaction)) {
+            // set the owning side to null (unless already changed)
+            if ($transaction->getWalletCrypto() === $this) {
+                $transaction->setWalletCrypto(null);
+            }
+        }
 
         return $this;
     }

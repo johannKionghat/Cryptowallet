@@ -1,0 +1,44 @@
+ <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaction /</span> Historic</h4>
+<div class="row">
+<div class="col-md mb-4 mb-md-0">
+    <div class="accordion mt-3" id="accordionExample">
+    {% set i = 0 %}
+    {% for transaction in transactions %}
+        {% set i = i + 1  %}
+        <div class="card accordion-item">
+        <h2 class="accordion-header">
+        <button
+            type="button"
+            class="accordion-button"
+            data-bs-toggle="collapse"
+            data-bs-target='#accordion{{i}}'
+            aria-expanded="false"
+            aria-controls='#accordion{{i}}'
+        >
+        <div class="d-flex flex-column">
+        
+        </div>
+            <strong><small>
+                Transaction Type : {{transaction.type}} | {{transaction.dateAt|date("F D, Y H:i ")}} | <small class="text-info">  {{ transaction.amountCrypto|number_format('6', ',', ';') }}</small>
+            </small></strong>
+        </button>
+        </h2>
+
+        <div
+        id="accordion{{i}}"
+        class="accordion-collapse collapse show"
+        data-bs-parent="#accordionExample"
+        >
+        <div class="accordion-body">
+            <div class="d-flex flex-column">
+                <small>Cryto : {{transaction.walletCrypto.nameCrypto}}</small>
+                <small>User : {{transaction.userTo.email}}</small>
+                <small>Amount : {{transaction.amountEuro}} €</small>
+                <small>Rate : {{transaction.amountCrypto}} </small>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>

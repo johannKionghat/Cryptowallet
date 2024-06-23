@@ -1,11 +1,12 @@
 
  <div class="col-md-12">
- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaction /</span> Buy</h4>
+ <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaction /</span> Sell</h4>
+
     {% include 'partials/flashes.html.twig'%}
         <div class="card mb-4 my-3">
             <div class="p-3 m-3 d-flex justify-content-center align-items-center gap-2">
                 <img
-                src="{{cryptoToBuy.image}}"
+                src="{{cryptoToSell.image}}"
                 alt="image-crypto"
                 class="d-block rounded"
                 height="25"
@@ -13,29 +14,29 @@
                 id="uploadedAvatar"
                 style="object-fit: cover;"
                 />
-                <div>{{cryptoToBuy.name}}</div>
+                <div>{{cryptoToSell.name}}</div>
             </div>
             <div class="p-3 d-flex justify-content-start align-items-center gap-2 flex-column">
-                <div><label>Rate : 1 {{cryptoToBuy.name}} = € {{rating}}</label></div>
-                <div><label> For € 1 you get {{(1 / rating)|number_format(5, '.', ',') }} {{cryptoToBuy.abreviation|upper}}</label></div>
+                <div><label>Rate : 1 {{cryptoToSell.name}} = € {{rating}}</label></div>
+                <div><label> For € 1 you get {{(1 / rating)|number_format(5, '.', ',') }} {{cryptoToSell.abreviation|upper}}</label></div>
             </div>
             <div class="card-body">
-            {{ form_start(formBuyCrypto) }}
+            {{ form_start(formSellCrypto) }}
             <div class="row">
                 <div class="mb-3 row">
                 <label for="email" class="form-label">Amount in EURO</label>
-                {{form_row(formBuyCrypto.amount)}}
+                {{form_row(formSellCrypto.amount)}}
                 </div>
                 <div class="mb-3 col">
-                <label class="form-label" for="password">Choose your Payment Method</label>
-                {{form_row(formBuyCrypto.PaymentMethod)}}
+                <label class="form-label" for="password">Choose your Withdraw Method </label>
+                {{form_row(formSellCrypto.PaymentMethod)}}
                 </div>
             </div>
             <div class="d-flex gap-2 mt-2">
-                {{ form_row(formBuyCrypto.Next) }}
+                {{ form_row(formSellCrypto.Next) }}
                 <a href="{{path('transaction.send')}}" class="btn btn-secondary">Annuler</a>
             </div>
-             {{ form_end(formBuyCrypto) }}
+             {{ form_end(formSellCrypto) }}
             </form>
         </div>
         </div>
