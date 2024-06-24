@@ -20,7 +20,7 @@ class ChooseWalletType extends AbstractType
         $this->security = $security;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $user = $this->security->getUser();
         $builder
