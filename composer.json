@@ -6,10 +6,10 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "composer/composer": "^2.0",
         "php": "^8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "composer/composer": "^2.0",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
@@ -23,7 +23,7 @@
         "symfony/doctrine-messenger": "7.0.*",
         "symfony/dotenv": "7.0.*",
         "symfony/expression-language": "7.0.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.4",
         "symfony/form": "7.0.*",
         "symfony/framework-bundle": "7.0.*",
         "symfony/http-client": "7.0.*",
@@ -85,18 +85,22 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
+    "auto-scripts": {
+        "cache:clear": "symfony-cmd",
+        "assets:install %PUBLIC_DIR%": "symfony-cmd",
+        "importmap:install": "symfony-cmd"
     },
+    "post-install-cmd": [
+        "@auto-scripts"
+    ],
+    "post-update-cmd": [
+        "@auto-scripts"
+    ],
+    "heroku-post-build": [
+        "if [ \"$HEROKU_ENV\" != \"production\" ]; then composer run-script post-install-cmd; fi"
+    ]
+}
+,
     "conflict": {
         "symfony/symfony": "*"
     },
