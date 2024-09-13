@@ -9,6 +9,16 @@
     array (
     ),
   ),
+  'chart.js/auto' => 
+  array (
+    'version' => '3.9.1',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
   '@hotwired/turbo' => 
   array (
     'version' => '7.3.0',
@@ -19,7 +29,7 @@
     array (
     ),
   ),
-  'chart.js/auto' => 
+  'chart.js' => 
   array (
     'version' => '3.9.1',
     'dependencies' => 
