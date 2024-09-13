@@ -55,7 +55,7 @@
     "config": {
             "process-timeout": 2000,
             "platform": {
-            "php": "^¨8.2" 
+            "php": "8.2"
             },
         "allow-plugins": {
             "php-http/discovery": true,
