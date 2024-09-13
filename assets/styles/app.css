@@ -48,7 +48,8 @@ body {
 }
 body{
     cursor:url('/assets/images/cursor.png'),auto;
-    background-image: url('/assets/images/loader2.gif');
+    /* background-image: url('/assets/images/loader2.gif'); */
+    background-color: #030817;
     background-position: top;
     background-size: cover;
     font-family:"poppins",sans-serif;
