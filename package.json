@@ -2,6 +2,7 @@
     "devDependencies": {
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
+        "@babel/preset-react": "^7.24.7",
         "@hotwired/stimulus": "^3.0.0",
         "@hotwired/turbo": "^7.1.1 || ^8.0",
         "@symfony/stimulus-bridge": "^3.2.0",
@@ -390,8 +391,8 @@
         "stackframe": "^1.3.4",
         "statuses": "^2.0.1",
         "std-env": "^3.7.0",
-        "string-width": "^4.2.3",
         "string_decoder": "^1.3.0",
+        "string-width": "^4.2.3",
         "strip-ansi": "^6.0.1",
         "strip-final-newline": "^2.0.0",
         "strip-literal": "^2.1.0",
